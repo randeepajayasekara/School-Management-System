@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import InputField from "../InputField";
-import Image from "next/image";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 
 const schema = z.object({
   username: z
@@ -140,11 +140,11 @@ const StudentForm = ({
           )}
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
-          <label
-            className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
+        <label
+            className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer border border-gray-300 p-2 rounded-md"
             htmlFor="img"
           >
-            <Image src="/upload.png" alt="" width={28} height={28} />
+            <PhotoIcon className="h-6 w-6" />
             <span>Upload a photo</span>
           </label>
           <input type="file" id="img" {...register("img")} className="hidden" />
@@ -155,7 +155,7 @@ const StudentForm = ({
           )}
         </div>
       </div>
-      <button className="bg-blue-400 text-white p-2 rounded-md">
+      <button className="bg-transparent text-gray-700 border-2 border-gray-200 p-2 rounded-md hover:bg-gray-100 duration-200">
         {type === "create" ? "Create" : "Update"}
       </button>
     </form>

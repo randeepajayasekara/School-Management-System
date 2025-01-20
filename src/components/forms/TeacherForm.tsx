@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import InputField from "../InputField";
-import Image from "next/image";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 
 const schema = z.object({
   username: z
@@ -124,7 +124,7 @@ const TeacherForm = ({
           type="date"
         />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Sex</label>
+          <label className="text-xs text-gray-500">Gender</label>
           <select
             className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
             {...register("sex")}
@@ -132,6 +132,7 @@ const TeacherForm = ({
           >
             <option value="male">Male</option>
             <option value="female">Female</option>
+            <option value="female">Non-Binary</option>
           </select>
           {errors.sex?.message && (
             <p className="text-xs text-red-400">
@@ -141,10 +142,10 @@ const TeacherForm = ({
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
           <label
-            className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
+            className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer border border-gray-300 p-2 rounded-md"
             htmlFor="img"
           >
-            <Image src="/upload.png" alt="" width={28} height={28} />
+            <PhotoIcon className="h-6 w-6" />
             <span>Upload a photo</span>
           </label>
           <input type="file" id="img" {...register("img")} className="hidden" />
@@ -155,7 +156,7 @@ const TeacherForm = ({
           )}
         </div>
       </div>
-      <button className="bg-blue-400 text-white p-2 rounded-md">
+      <button className="bg-transparent text-gray-700 border-2 border-gray-200 p-2 rounded-md hover:bg-gray-100 duration-200">
         {type === "create" ? "Create" : "Update"}
       </button>
     </form>
