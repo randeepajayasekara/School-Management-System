@@ -2,6 +2,7 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { announcementsData, role } from "@/lib/data";
 import {
     FunnelIcon,
