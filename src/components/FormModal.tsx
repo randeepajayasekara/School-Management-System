@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { JSX } from "react";
 import Image from "next/image";
+import { TrashIcon, XMarkIcon, PlusIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 // USE LAZY LOADING
@@ -50,10 +51,10 @@ const FormModal = ({
   const size = type === "create" ? "w-8 h-8" : "w-7 h-7";
   const bgColor =
     type === "create"
-      ? "bg-lamaYellow"
+      ? "bg-gray-600"
       : type === "update"
-      ? "bg-lamaSky"
-      : "bg-lamaPurple";
+      ? "bg-zinc-200"
+      : "bg-red-400 p-1";
 
   const [open, setOpen] = useState(false);
 
@@ -63,7 +64,7 @@ const FormModal = ({
         <span className="text-center font-medium">
           All data will be lost. Are you sure you want to delete this {table}?
         </span>
-        <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center">
+        <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center hover:bg-red-800 duration-150">
           Delete
         </button>
       </form>
@@ -77,10 +78,12 @@ const FormModal = ({
   return (
     <>
       <button
-        className={`${size} flex items-center justify-center rounded-full ${bgColor}`}
+        className={`${size} flex items-center justify-center rounded-full border ${bgColor}`}
         onClick={() => setOpen(true)}
       >
-        <Image src={`/${type}.png`} alt="" width={16} height={16} />
+        {type === "create" && <PlusIcon className="w-5 h-5 text-white" />}
+        {type === "update" && <PencilIcon className="w-5 h-5 text-white" />}
+        {type === "delete" && <TrashIcon className="w-5 h-5 text-white" />}
       </button>
       {open && (
         <div className="w-screen h-screen absolute left-0 top-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
@@ -90,7 +93,7 @@ const FormModal = ({
               className="absolute top-4 right-4 cursor-pointer"
               onClick={() => setOpen(false)}
             >
-              <Image src="/close.png" alt="" width={14} height={14} />
+              <XMarkIcon className="h-6 w-6 hover:bg-gray-100 rounded-full hover:p-1 duration-300" />
             </div>
           </div>
         </div>
