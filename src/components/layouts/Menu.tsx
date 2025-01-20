@@ -11,9 +11,7 @@ import {
     DocumentCheckIcon,
     DocumentTextIcon,
     PercentBadgeIcon,
-    UserGroupIcon,
     CalendarDaysIcon,
-    ChatBubbleOvalLeftEllipsisIcon,
     MegaphoneIcon,
     UserCircleIcon,
     Cog6ToothIcon,
@@ -88,21 +86,9 @@ const menuItems = [
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
-        icon: <UserGroupIcon />,
-        label: "Attendance",
-        href: "/list/attendance",
-        visible: ["admin", "teacher", "student", "parent"],
-      },
-      {
         icon: <CalendarDaysIcon />,
         label: "Events",
         href: "/list/events",
-        visible: ["admin", "teacher", "student", "parent"],
-      },
-      {
-        icon: <ChatBubbleOvalLeftEllipsisIcon />,
-        label: "Messages",
-        href: "/list/messages",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {

@@ -2,7 +2,7 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
 const UserCard = ({ type }: { type: string }) => {
   return (
-    <div className="rounded-2xl odd:bg-CustomPurple even:bg-CustomYellow p-4 flex-1 min-w-[130px]">
+    <div className="rounded-2xl odd:bg-sky-200 even:bg-sky-100 p-4 flex-1 min-w-[130px] border-2 border-sky-500">
       <div className="flex justify-between items-center">
         <span className="text-[10px] bg-white px-2 py-1 rounded-full text-green-600">
           2024/25
