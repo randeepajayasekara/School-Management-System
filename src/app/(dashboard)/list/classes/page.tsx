@@ -1,13 +1,11 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
-import {
-    FunnelIcon,
-    ArrowsUpDownIcon,
-} from "@heroicons/react/20/solid";
 import TableSearch from "@/components/TableSearch";
 import { classesData, role } from "@/lib/data";
-import Image from "next/image";
 
 type Class = {
   id: number;
@@ -44,6 +42,52 @@ const columns = [
 ];
 
 const ClassListPage = () => {
+  const [data, setData] = useState<Class[]>(classesData);
+  const [filteredData, setFilteredData] = useState<Class[]>(classesData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [gradeFilter, setGradeFilter] = useState<number | null>(null);
+  const [supervisorFilter, setSupervisorFilter] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let filtered = classesData.filter((cls) =>
+      cls.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cls.capacity.toString().includes(searchQuery) ||
+      cls.grade.toString().includes(searchQuery) ||
+      cls.supervisor.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (gradeFilter !== null) {
+      filtered = filtered.filter((cls) => cls.grade === gradeFilter);
+    }
+
+    if (supervisorFilter) {
+      filtered = filtered.filter((cls) =>
+        cls.supervisor.toLowerCase().includes(supervisorFilter.toLowerCase())
+      );
+    }
+
+    setFilteredData(filtered);
+  }, [searchQuery, gradeFilter, supervisorFilter]);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  const handleGradeFilterChange = (grade: number | null) => {
+    setGradeFilter(grade);
+  };
+
+  const handleSupervisorFilterChange = (supervisor: string) => {
+    setSupervisorFilter(supervisor);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   const renderRow = (item: Class) => (
     <tr
       key={item.id}
@@ -66,28 +110,56 @@ const ClassListPage = () => {
     </tr>
   );
 
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0 border border-gray-200">
       {/* TOP */}
       <div className="flex items-center justify-between">
         <h1 className="hidden md:block text-lg font-semibold">All Classes</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-          <TableSearch />
+          <TableSearch onSearch={handleSearch} />
           <div className="flex items-center gap-4 self-end">
-          <button className="w-8 h-8 flex items-center justify-center rounded-full border">
-              <FunnelIcon className="w-5 h-5 text-gray-400" />
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full border">
-              <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
-            </button>
             {role === "admin" && <FormModal table="class" type="create" />}
           </div>
         </div>
       </div>
+      {/* FILTERS */}
+      <div className="flex gap-4 mt-4">
+        <input
+          type="number"
+          placeholder="Filter by Grade"
+          value={gradeFilter ?? ""}
+          onChange={(e) => handleGradeFilterChange(e.target.value ? parseInt(e.target.value) : null)}
+          className="border p-2 rounded text-sm w-48"
+          min="1"
+          max="13"
+        />
+        <input
+          type="text"
+          placeholder="Filter by Supervisor"
+          value={supervisorFilter}
+          onChange={(e) => handleSupervisorFilterChange(e.target.value)}
+          className="border p-2 rounded text-sm"
+        />
+      </div>
       {/* LIST */}
-      <Table columns={columns} renderRow={renderRow} data={classesData} />
+      {error ? (
+        <div className="text-red-500">{error}</div>
+      ) : filteredData.length > 0 ? (
+        <Table columns={columns} renderRow={renderRow} data={paginatedData} />
+      ) : (
+        <div className="text-center text-gray-500">No results found</div>
+      )}
       {/* PAGINATION */}
-      <Pagination />
+      <Pagination
+        totalPages={Math.ceil(filteredData.length / itemsPerPage)}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
