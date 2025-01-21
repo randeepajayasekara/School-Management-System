@@ -1,5 +1,10 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +16,47 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const auth = getAuth();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Fetch user role from Firestore
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const role = userData.role;
+
+        // Store role in local storage and print to console
+        localStorage.setItem("userRole", role);
+        console.log("User role:", role);
+
+        // Redirect based on user role
+        if (role === "admin") {
+          router.push("/admin");
+        } else if (role === "teacher") {
+          router.push("/teacher");
+        } else if (role === "student") {	
+          router.push("/student");
+        } else if (role === "parent") {
+          router.push("/parent");
+        } else {
+          toast.error("User role not found.");
+        }
+      } else {
+        toast.error("User role not found.");
+      }
+    } catch (error) {
+      toast.error("Failed to login. Please check your credentials.");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div>
@@ -18,7 +64,7 @@ export function LoginForm({
       </div>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form className="p-6 md:p-8" onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold select-none">Welcome back</h1>
@@ -33,6 +79,8 @@ export function LoginForm({
                   type="email"
                   placeholder="m@example.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
@@ -40,16 +88,21 @@ export function LoginForm({
                   <Label htmlFor="password">Password</Label>
                   <span
                     className="ml-auto text-sm underline-offset-2 hover:underline"
-                    onClick={() => toast("This feature will available soon...")}
+                    onClick={() => toast("This feature will be available soon...")}
                   >
                     Forgot your password?
                   </span>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
+              <Button type="submit">Login</Button>
             </div>
           </form>
           <div className="relative hidden bg-muted md:block">
