@@ -65,9 +65,7 @@ const Navbar = () => {
           <SheetTrigger>
             <div className="bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer relative">
               <BellIcon className="w-8 h-8 border rounded-full p-1" />
-              <div className="absolute -top-1 -right-2 w-4 h-4 flex items-center justify-center bg-sky-500 text-white rounded-full text-xs">
-
-              </div>
+              <div className="absolute -top-1 -right-2 w-4 h-4 flex items-center justify-center bg-sky-500 text-white rounded-full text-xs"></div>
             </div>
           </SheetTrigger>
           <SheetContent>
@@ -111,9 +109,20 @@ const Navbar = () => {
                   <h2 className="text-md">{userData.username}</h2>
                   <p className="text-xs">{userData.email}</p>
                   <p className="text-sm text-gray-500">{userData.nameRole}</p>
-                  <Button variant="destructive" className="mt-2">
+                    <Button
+                    variant="destructive"
+                    className="mt-2"
+                    onClick={() => {
+                      const auth = getAuth();
+                      auth.signOut().then(() => {
+                      setUser(null);
+                      setUserData(null);
+                      window.location.href = "/"; 
+                      });
+                    }}
+                    >
                     Logout
-                  </Button>
+                    </Button>
                 </div>
               </div>
             </PopoverContent>
