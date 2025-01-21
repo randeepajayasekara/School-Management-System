@@ -101,7 +101,7 @@ const StudentListPage = () => {
   const renderRow = (item: Student) => (
     <tr
       key={item.id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-CustomPurpleLight"
+      className="border-b border-gray-200 dark:border-gray-800 even:bg-slate-50 dark:even:bg-slate-900 text-sm hover:bg-CustomPurpleLight dark:hover:bg-slate-800 duration-300"
     >
       <td className="flex items-center gap-4 p-4">
         <Image
@@ -123,7 +123,7 @@ const StudentListPage = () => {
       <td>
         <div className="flex items-center gap-2">
           <Link href={`/list/students/${item.id}`}>
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-400 p-1">
+            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-400 dark:bg-gray-700 p-1">
               <EyeIcon className="w-5 h-5 text-white" />
             </button>
           </Link>
@@ -138,7 +138,7 @@ const StudentListPage = () => {
   );
 
   return (
-    <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0 border-2 border-gray-200">
+    <div className="bg-white dark:bg-slate-900 p-4 rounded-md flex-1 m-4 mt-0 border-2 border-gray-200 dark:border-gray-700">
       {/* TOP */}
       <div className="flex items-center justify-between">
         <h1 className="hidden md:block text-lg font-semibold">All Students</h1>
@@ -146,14 +146,14 @@ const StudentListPage = () => {
           <TableSearch onSearch={handleSearch} />
           <div className="flex items-center gap-4 self-end">
             <button
-              className="w-8 h-8 flex items-center justify-center rounded-full border"
+              className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
               onClick={() => handleSort("name")}
               title="Sort by Name"
             >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
             </button>
             <button
-              className="w-8 h-8 flex items-center justify-center rounded-full border"
+              className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
               onClick={() => handleSort("grade")}
               title="Sort by Grade"
             >
