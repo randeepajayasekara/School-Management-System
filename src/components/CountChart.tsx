@@ -41,7 +41,7 @@ const CountChart = () => {
   }, [])
 
   return (
-    <div className="bg-white rounded-xl w-full h-fit p-4 border-2 border-sky-300">
+    <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-fit p-4 border-2 border-zinc-300 dark:border-slate-800">
       {/* TITLE */}
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-semibold">Students</h1>
@@ -78,14 +78,14 @@ const CountChart = () => {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
+                          className="fill-foreground text-3xl font-bold dark:fill-white"
                         >
                           {totalCount.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
+                          className="fill-muted-foreground dark:fill-white"
                         >
                           Students
                         </tspan>

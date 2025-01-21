@@ -77,7 +77,7 @@ const data = [
 
 const FinanceChart = () => {
   return (
-    <div className="bg-white rounded-xl w-full h-full p-4 border-2 border-sky-200">
+    <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-full p-4 border-2 border-sky-200 dark:border-slate-800">
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-semibold">Finance</h1>
         <EllipsisHorizontalIcon className="w-6 h-6" />

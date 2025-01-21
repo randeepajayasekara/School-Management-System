@@ -30,7 +30,7 @@ const chartConfig = {
 
 const AttendanceChart = () => {
   return (
-    <div className="bg-white rounded-lg p-4 h-fit border-2 border-sky-300">
+    <div className="bg-white dark:bg-slate-900 rounded-lg p-4 h-fit border-2 border-zinc-300 dark:border-slate-800">
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-semibold">Attendance</h1>
         <EllipsisHorizontalIcon className="h-5 w-5" />
