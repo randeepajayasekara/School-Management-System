@@ -9,17 +9,14 @@ import { User } from "firebase/auth";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
   BellIcon,
-  ChatBubbleOvalLeftIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -27,6 +24,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { ModeToggle } from "../theme/mode-toggle";
 const Navbar = () => {
   const [user, setUser] = useState<User | null>(null);
   interface UserData {
@@ -61,10 +59,11 @@ const Navbar = () => {
     <div className="flex items-center justify-between p-4">
       {/* ICONS AND USER */}
       <div className="flex items-center gap-6 justify-end w-full">
+        <ModeToggle />
         <Sheet>
           <SheetTrigger>
-            <div className="bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer relative">
-              <BellIcon className="w-8 h-8 border rounded-full p-1" />
+            <div className="bg-white dark:bg-black rounded-full w-8 h-7 flex items-center justify-center cursor-pointer relative">
+              <BellIcon className="w-8 h-8 border dark:border-zinc-800 rounded-full p-1" />
               <div className="absolute -top-1 -right-2 w-4 h-4 flex items-center justify-center bg-sky-500 text-white rounded-full text-xs"></div>
             </div>
           </SheetTrigger>

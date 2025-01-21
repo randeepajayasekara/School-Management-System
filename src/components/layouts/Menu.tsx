@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import firebase from "firebase/app";
 import "firebase/auth";
-import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
 
 import { 
@@ -17,8 +15,6 @@ import {
     PercentBadgeIcon,
     CalendarDaysIcon,
     MegaphoneIcon,
-    UserCircleIcon,
-    Cog6ToothIcon,
     ArrowRightStartOnRectangleIcon,
  } from "@heroicons/react/24/outline";
 
@@ -104,14 +100,8 @@ const menuItems = [
     ],
   },
   {
-    title: "Account",
+    title: "",
     items: [
-      {
-        icon: <Cog6ToothIcon />,
-        label: "Settings",
-        href: "/settings",
-        visible: ["admin", "teacher", "student", "parent"],
-      },
       {
         icon: <ArrowRightStartOnRectangleIcon />,
         label: "Logout",
@@ -134,28 +124,30 @@ const Menu = () => {
   }, []);
 
   return (
-    <div className="mt-4 text-sm">
-      {menuItems.map((i) => (
-        <div className="flex flex-col gap-2" key={i.title}>
-          <span className="hidden lg:block text-gray-400 font-light my-4">
-            {i.title}
-          </span>
-          {i.items.map((item) => {
-            if (item.visible.includes(role)) {
-              return (
-                <Link
-                  href={item.href}
-                  key={item.label}
-                  className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-CustomSkyLight"
-                >
-                  <span className="w-5 h-5">{item.icon}</span>
-                  <span className="hidden lg:block">{item.label}</span>
-                </Link>
-              );
-            }
-          })}
-        </div>
-      ))}
+    <div>
+      <div className="mt-4 text-sm">
+        {menuItems.map((i) => (
+          <div className="flex flex-col gap-2" key={i.title}>
+            <span className="hidden lg:block text-gray-400 font-light my-4">
+              {i.title}
+            </span>
+            {i.items.map((item) => {
+              if (item.visible.includes(role)) {
+                return (
+                  <Link
+                    href={item.href}
+                    key={item.label}
+                    className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 dark:text-gray-100 py-2 md:px-2 rounded-md hover:bg-CustomSkyLight dark:hover:bg-gray-700 duration-300"
+                  >
+                    <span className="w-5 h-5">{item.icon}</span>
+                    <span className="hidden lg:block">{item.label}</span>
+                  </Link>
+                );
+              }
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
