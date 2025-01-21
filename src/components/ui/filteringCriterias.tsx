@@ -39,10 +39,10 @@ const FilteringCriterias = ({ onApplyFilters }: FilteringCriteriasProps) => {
   return (
     <>
       <button
-        className="w-8 h-8 flex items-center justify-center rounded-full border"
+        className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-zinc-700"
         onClick={openModal}
       >
-        <FunnelIcon className="w-5 h-5 text-gray-400" />
+        <FunnelIcon className="w-5 h-5 text-gray-400 dark:text-white" />
       </button>
 
       <Transition appear show={isOpen} as={React.Fragment}>
@@ -70,19 +70,19 @@ const FilteringCriterias = ({ onApplyFilters }: FilteringCriteriasProps) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800/50 backdrop-blur-lg p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                   >
                     Select Filtering Criterias
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 dark:text-white">
                       Choose the criteria you want to filter by:
                     </p>
                     <div className="mt-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Subject
                       </label>
                       <input
@@ -90,11 +90,11 @@ const FilteringCriterias = ({ onApplyFilters }: FilteringCriteriasProps) => {
                         name="subject"
                         value={filters.subject}
                         onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="bg-white dark:bg-slate-900/60 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                     <div className="mt-4">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-white">
                         Class
                       </label>
                       <input
@@ -102,7 +102,7 @@ const FilteringCriterias = ({ onApplyFilters }: FilteringCriteriasProps) => {
                         name="className"
                         value={filters.className}
                         onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="bg-white dark:bg-slate-900/60 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                   </div>

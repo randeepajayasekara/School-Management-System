@@ -4,6 +4,7 @@ type InputFieldProps = {
   label: string;
   name: string;
   defaultValue?: any;
+  type?: string;
   register: UseFormRegister<any>;
   error?: FieldError;
   hidden?: boolean;
