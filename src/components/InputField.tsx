@@ -1,12 +1,12 @@
-import { FieldError } from "react-hook-form";
+import { FieldError, UseFormRegister } from "react-hook-form";
 
 type InputFieldProps = {
   label: string;
-  type?: string;
-  register: any;
   name: string;
-  defaultValue?: string;
+  defaultValue?: any;
+  register: UseFormRegister<any>;
   error?: FieldError;
+  hidden?: boolean;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
