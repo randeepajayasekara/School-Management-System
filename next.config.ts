@@ -7,24 +7,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/unauthorized',
-        destination: '/unauthorized',
-        permanent: false,
-      },
-    ];
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/:path*',
-        destination: '/api/middleware',
-      },
-    ];
-  },
-};
 
 export default nextConfig;

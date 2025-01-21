@@ -4,26 +4,39 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/firebase/firebase"; 
+import { db } from "@/firebase/firebase";
 import { User } from "firebase/auth";
-
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   BellIcon,
   ChatBubbleOvalLeftIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 const Navbar = () => {
-
-  
   const [user, setUser] = useState<User | null>(null);
   interface UserData {
     username: string;
     nameRole: string;
+    email: string;
     role: string;
     profilePicture?: string;
   }
-  
+
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
@@ -45,36 +58,72 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className='flex items-center justify-between p-4'>
+    <div className="flex items-center justify-between p-4">
       {/* ICONS AND USER */}
-      <div className='flex items-center gap-6 justify-end w-full'>
-        <div className='bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer'>
-          <ChatBubbleOvalLeftIcon className="w-8 h-8 border rounded-full p-1"/>
-        </div>
-        <div className='bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer relative'>
-          <BellIcon className="w-8 h-8 border rounded-full p-1"/>
-          <div className='absolute -top-1 -right-2 w-4 h-4 flex items-center justify-center bg-sky-500 text-white rounded-full text-xs'>1</div>
-        </div>
+      <div className="flex items-center gap-6 justify-end w-full">
+        <Sheet>
+          <SheetTrigger>
+            <div className="bg-white rounded-full w-7 h-7 flex items-center justify-center cursor-pointer relative">
+              <BellIcon className="w-8 h-8 border rounded-full p-1" />
+              <div className="absolute -top-1 -right-2 w-4 h-4 flex items-center justify-center bg-sky-500 text-white rounded-full text-xs">
+
+              </div>
+            </div>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Notifications</SheetTitle>
+              <SheetDescription>All caught up!</SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
         {userData && (
-          <div className='flex flex-col'>
-            <span className="text-xs leading-3 font-medium">{userData.username}</span>
-            <span className="text-[10px] text-gray-500 text-right">{userData.nameRole}</span>
+          <div className="flex flex-col">
+            <span className="text-xs leading-3 font-medium">
+              {userData.username}
+            </span>
+            <span className="text-[10px] text-gray-500 text-right">
+              {userData.nameRole}
+            </span>
           </div>
         )}
         {userData?.profilePicture ? (
-          <Image
-            src={userData.profilePicture}
-            alt="Profile Picture"
-            width={32}
-            height={32}
-            className="h-8 w-8 border rounded-full"
-          />
+          <Popover>
+            <PopoverTrigger>
+              <Image
+                src={userData.profilePicture}
+                alt="Profile Picture"
+                width={32}
+                height={32}
+                className="h-8 w-8 border rounded-full"
+              />
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className="flex flex-row items-center gap-2 p-1">
+                <Image
+                  src={userData.profilePicture}
+                  alt="Profile Picture"
+                  width={75}
+                  height={75}
+                  className="profile-picture rounded-full border-2 border-gray-200"
+                />
+                <div className="flex flex-col">
+                  <h2 className="text-md">{userData.username}</h2>
+                  <p className="text-xs">{userData.email}</p>
+                  <p className="text-sm text-gray-500">{userData.nameRole}</p>
+                  <Button variant="destructive" className="mt-2">
+                    Logout
+                  </Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         ) : (
-          <UserIcon className="h-8 w-8 border rounded-full p-1"/>
+          <UserIcon className="h-8 w-8 border rounded-full p-1" />
         )}
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;
