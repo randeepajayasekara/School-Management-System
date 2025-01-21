@@ -45,7 +45,7 @@ const ClassListPage = () => {
   const [data, setData] = useState<Class[]>(classesData);
   const [filteredData, setFilteredData] = useState<Class[]>(classesData);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(11);
   const [searchQuery, setSearchQuery] = useState("");
   const [gradeFilter, setGradeFilter] = useState<number | null>(null);
   const [supervisorFilter, setSupervisorFilter] = useState<string>("");
@@ -91,7 +91,7 @@ const ClassListPage = () => {
   const renderRow = (item: Class) => (
     <tr
       key={item.id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-CustomPurpleLight"
+      className="border-b border-gray-200 dark:border-gray-800 even:bg-slate-50 dark:even:bg-slate-900 text-sm hover:bg-CustomPurpleLight dark:hover:bg-slate-800 duration-300"
     >
       <td className="flex items-center gap-4 p-4">{item.name}</td>
       <td className="hidden md:table-cell">{item.capacity}</td>
@@ -116,7 +116,7 @@ const ClassListPage = () => {
   );
 
   return (
-    <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0 border border-gray-200">
+    <div className="bg-white dark:bg-slate-900 p-4 rounded-md flex-1 m-4 mt-0 border-2 border-gray-200 dark:border-gray-700">
       {/* TOP */}
       <div className="flex items-center justify-between">
         <h1 className="hidden md:block text-lg font-semibold">All Classes</h1>
@@ -128,13 +128,13 @@ const ClassListPage = () => {
         </div>
       </div>
       {/* FILTERS */}
-      <div className="flex gap-4 mt-4">
+      <div className="flex flex-col md:flex-row gap-4 mt-4">
         <input
           type="number"
           placeholder="Filter by Grade"
           value={gradeFilter ?? ""}
           onChange={(e) => handleGradeFilterChange(e.target.value ? parseInt(e.target.value) : null)}
-          className="border p-2 rounded text-sm w-48"
+          className="border p-2 rounded text-sm md:w-48 sm:w-[70px] dark:bg-transparent"
           min="1"
           max="13"
         />
@@ -143,7 +143,7 @@ const ClassListPage = () => {
           placeholder="Filter by Supervisor"
           value={supervisorFilter}
           onChange={(e) => handleSupervisorFilterChange(e.target.value)}
-          className="border p-2 rounded text-sm"
+          className="border p-2 rounded text-sm md:w-48 sm:w-[70px] dark:bg-transparent"
         />
       </div>
       {/* LIST */}
