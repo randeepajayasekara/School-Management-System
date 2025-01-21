@@ -1,5 +1,9 @@
-import { role } from "@/lib/data";
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
 
 import { 
@@ -125,6 +129,16 @@ const menuItems = [
 ];
 
 const Menu = () => {
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    const userRole = localStorage.getItem("userRole");
+    if (userRole) {
+      setRole(userRole);
+      console.log("User role:", userRole);
+    }
+  }, []);
+
   return (
     <div className="mt-4 text-sm">
       {menuItems.map((i) => (
