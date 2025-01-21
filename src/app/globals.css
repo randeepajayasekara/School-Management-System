@@ -12,7 +12,6 @@ body {
   font-family: "Poppins", sans-serif !important;
 }
 
-
 .react-calendar__navigation__label__labelText {
   font-weight: 600;
 }
@@ -107,9 +106,63 @@ body {
   background-color: #fdf2fb !important;
 }
 
-.rbc-event-label{
+.rbc-event-label {
   color: gray !important;
   margin-bottom: 5px;
+}
+
+.dark .react-calendar__tile--active {
+  background-color: #2c3e50 !important;
+  color: white !important;
+}
+
+.dark .rbc-btn-group:last-child button {
+  background-color: #34495e !important;
+}
+
+.dark .rbc-toolbar button.rbc-active {
+  background-color: #1abc9c !important;
+}
+
+.dark .rbc-time-view {
+  border-color: #34495e !important;
+}
+
+.dark .rbc-timeslot-group {
+  background-color: #2c3e50 !important;
+}
+
+.dark .rbc-event {
+  color: white !important;
+}
+
+.dark .rbc-event:nth-child(1) {
+  background-color: #16a085 !important;
+}
+.dark .rbc-event:nth-child(2) {
+  background-color: #f39c12 !important;
+}
+.dark .rbc-event:nth-child(3) {
+  background-color: #8e44ad !important;
+}
+.dark .rbc-event:nth-child(4) {
+  background-color: #e74c3c !important;
+}
+.dark .rbc-event:nth-child(5) {
+  background-color: #16a085 !important;
+}
+.dark .rbc-event:nth-child(6) {
+  background-color: #f39c12 !important;
+}
+.dark .rbc-event:nth-child(7) {
+  background-color: #8e44ad !important;
+}
+.dark .rbc-event:nth-child(8) {
+  background-color: #e74c3c !important;
+}
+
+.dark .rbc-event-label {
+  color: lightgray !important;
 }
 
 @layer base {
