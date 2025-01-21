@@ -107,12 +107,6 @@ const menuItems = [
     title: "Account",
     items: [
       {
-        icon: <UserCircleIcon />,
-        label: "Profile",
-        href: "/profile",
-        visible: ["admin", "teacher", "student", "parent"],
-      },
-      {
         icon: <Cog6ToothIcon />,
         label: "Settings",
         href: "/settings",

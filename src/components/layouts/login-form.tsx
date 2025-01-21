@@ -107,7 +107,7 @@ export function LoginForm({
           </form>
           <div className="relative hidden bg-muted md:block">
             <img
-              src="https://img.freepik.com/free-vector/gradient-geometric-background_23-2149329069.jpg?t=st=1737384961~exp=1737388561~hmac=361d91ef27cc276ec0cb0d5c7bb09c64a4cb8400f46ff37eff0ad77a513086e5&w=1380"
+              src="https://i.ibb.co/Dr431hN/login-Form-BG.jpg"
               alt="Image"
               className="select-none absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
