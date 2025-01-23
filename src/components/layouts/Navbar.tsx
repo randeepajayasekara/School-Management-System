@@ -15,10 +15,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  BellIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import { BellIcon, UserIcon } from "@heroicons/react/24/outline";
 import {
   Popover,
   PopoverContent,
@@ -108,20 +105,20 @@ const Navbar = () => {
                   <h2 className="text-md">{userData.username}</h2>
                   <p className="text-xs">{userData.email}</p>
                   <p className="text-sm text-gray-500">{userData.nameRole}</p>
-                    <Button
+                  <Button
                     variant="destructive"
                     className="mt-2"
                     onClick={() => {
                       const auth = getAuth();
                       auth.signOut().then(() => {
-                      setUser(null);
-                      setUserData(null);
-                      window.location.href = "/"; 
+                        setUser(null);
+                        setUserData(null);
+                        window.location.href = "/";
                       });
                     }}
-                    >
+                  >
                     Logout
-                    </Button>
+                  </Button>
                 </div>
               </div>
             </PopoverContent>

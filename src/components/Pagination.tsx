@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 
-const Pagination = ({ totalPages, currentPage, onPageChange }: { totalPages: number, currentPage: number, onPageChange: (page: number) => void }) => {
+const Pagination = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+}: {
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}) => {
   const handlePrev = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);

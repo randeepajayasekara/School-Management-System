@@ -9,18 +9,15 @@ type TableProps = {
   onHeaderClick?: (accessor: string) => void;
 };
 
-const Table = ({
-  columns,
-  renderRow,
-  data,
-  onHeaderClick,
-}: TableProps) => {
+const Table = ({ columns, renderRow, data, onHeaderClick }: TableProps) => {
   return (
     <table className="w-full mt-4">
       <thead>
         <tr className="text-left text-gray-500 text-sm">
           {columns.map((col) => (
-            <th key={col.accessor} className={col.className}>{col.header}</th>
+            <th key={col.accessor} className={col.className}>
+              {col.header}
+            </th>
           ))}
         </tr>
       </thead>
