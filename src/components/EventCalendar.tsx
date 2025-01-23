@@ -39,7 +39,7 @@ const EventCalendar = () => {
       <Calendar onChange={onChange} value={value} />
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold my-4">Events</h1>
-        <EllipsisHorizontalIcon className="h-5 w-5"/>
+        <EllipsisHorizontalIcon className="h-5 w-5" />
       </div>
       <div className="flex flex-col gap-4">
         {events.map((event) => (
@@ -48,10 +48,16 @@ const EventCalendar = () => {
             key={event.id}
           >
             <div className="flex items-center justify-between">
-              <h1 className="font-semibold text-gray-600 dark:text-gray-200">{event.title}</h1>
-              <span className="text-gray-300 text-xs dark:text-gray-200">{event.time}</span>
+              <h1 className="font-semibold text-gray-600 dark:text-gray-200">
+                {event.title}
+              </h1>
+              <span className="text-gray-300 text-xs dark:text-gray-200">
+                {event.time}
+              </span>
             </div>
-            <p className="mt-2 text-gray-400 text-sm dark:text-gray-200">{event.description}</p>
+            <p className="mt-2 text-gray-400 text-sm dark:text-gray-200">
+              {event.description}
+            </p>
           </div>
         ))}
       </div>

@@ -102,7 +102,12 @@ const FinanceChart = () => {
             tickLine={false}
             tickMargin={10}
           />
-          <YAxis axisLine={false} tick={{ fill: "#808286" }} tickLine={false}  tickMargin={20}/>
+          <YAxis
+            axisLine={false}
+            tick={{ fill: "#808286" }}
+            tickLine={false}
+            tickMargin={20}
+          />
           <Tooltip />
           <Legend
             align="center"
@@ -115,7 +120,12 @@ const FinanceChart = () => {
             stroke="#749caa"
             strokeWidth={5}
           />
-          <Line type="monotone" dataKey="Expense" stroke="#9796c4" strokeWidth={5}/>
+          <Line
+            type="monotone"
+            dataKey="Expense"
+            stroke="#9796c4"
+            strokeWidth={5}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

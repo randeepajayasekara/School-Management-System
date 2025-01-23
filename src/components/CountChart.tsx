@@ -1,8 +1,6 @@
 "use client";
 
-import {
-  EllipsisHorizontalIcon,
-} from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { Label, Pie, PieChart } from "recharts";
 import {
   ChartConfig,
@@ -15,7 +13,6 @@ import React from "react";
 const chartData = [
   { gender: "girls", count: 275, fill: "var(--color-girls)" },
   { gender: "boys", count: 200, fill: "var(--color-boys)" },
-
 ];
 
 const chartConfig = {
@@ -30,15 +27,12 @@ const chartConfig = {
     label: "Boys",
     color: "hsl(var(--chart-2))",
   },
-
 } satisfies ChartConfig;
 
-
 const CountChart = () => {
-
   const totalCount = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.count, 0)
-  }, [])
+    return chartData.reduce((acc, curr) => acc + curr.count, 0);
+  }, []);
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-fit p-4 border-2 border-zinc-300 dark:border-slate-800">
@@ -102,13 +96,37 @@ const CountChart = () => {
       <div className="flex justify-center gap-16">
         <div className="flex flex-col gap-1">
           <div className="w-5 h-5 bg-[hsl(var(--chart-2))] rounded-full" />
-            <h1 className="font-bold">{chartData.find(data => data.gender === "boys")?.count.toLocaleString()}</h1>
-            <h2 className="text-xs text-gray-500">Boys ({((chartData.find(data => data.gender === "boys")?.count || 0) / totalCount * 100).toFixed(2)}%)</h2>
+          <h1 className="font-bold">
+            {chartData
+              .find((data) => data.gender === "boys")
+              ?.count.toLocaleString()}
+          </h1>
+          <h2 className="text-xs text-gray-500">
+            Boys (
+            {(
+              ((chartData.find((data) => data.gender === "boys")?.count || 0) /
+                totalCount) *
+              100
+            ).toFixed(2)}
+            %)
+          </h2>
         </div>
         <div className="flex flex-col gap-1">
           <div className="w-5 h-5 bg-[hsl(var(--chart-1))] rounded-full" />
-          <h1 className="font-bold">{chartData.find(data => data.gender === "girls")?.count.toLocaleString()}</h1>
-          <h2 className="text-xs text-gray-500">Girls ({((chartData.find(data => data.gender === "girls")?.count || 0) / totalCount * 100).toFixed(2)}%)</h2>
+          <h1 className="font-bold">
+            {chartData
+              .find((data) => data.gender === "girls")
+              ?.count.toLocaleString()}
+          </h1>
+          <h2 className="text-xs text-gray-500">
+            Girls (
+            {(
+              ((chartData.find((data) => data.gender === "girls")?.count || 0) /
+                totalCount) *
+              100
+            ).toFixed(2)}
+            %)
+          </h2>
         </div>
       </div>
     </div>

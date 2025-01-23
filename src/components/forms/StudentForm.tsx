@@ -140,7 +140,7 @@ const StudentForm = ({
           )}
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
-        <label
+          <label
             className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer border border-gray-300 p-2 rounded-md"
             htmlFor="img"
           >
