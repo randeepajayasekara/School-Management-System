@@ -52,11 +52,12 @@ const ClassListPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let filtered = classesData.filter((cls) =>
-      cls.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cls.capacity.toString().includes(searchQuery) ||
-      cls.grade.toString().includes(searchQuery) ||
-      cls.supervisor.toLowerCase().includes(searchQuery.toLowerCase())
+    let filtered = classesData.filter(
+      (cls) =>
+        cls.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        cls.capacity.toString().includes(searchQuery) ||
+        cls.grade.toString().includes(searchQuery) ||
+        cls.supervisor.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     if (gradeFilter !== null) {
@@ -133,7 +134,11 @@ const ClassListPage = () => {
           type="number"
           placeholder="Filter by Grade"
           value={gradeFilter ?? ""}
-          onChange={(e) => handleGradeFilterChange(e.target.value ? parseInt(e.target.value) : null)}
+          onChange={(e) =>
+            handleGradeFilterChange(
+              e.target.value ? parseInt(e.target.value) : null
+            )
+          }
           className="border p-2 rounded text-sm md:w-48 sm:w-[70px] dark:bg-transparent"
           min="1"
           max="13"

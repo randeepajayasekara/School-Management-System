@@ -37,15 +37,19 @@ const SubjectListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortConfig, setSortConfig] = useState<{ key: string; direction: string } | null>(null);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let filtered = subjectsData.filter((subject) =>
-      subject.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      subject.teachers.some((teacher) =>
-        teacher.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+    let filtered = subjectsData.filter(
+      (subject) =>
+        subject.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        subject.teachers.some((teacher) =>
+          teacher.toLowerCase().includes(searchQuery.toLowerCase())
+        )
     );
 
     if (sortConfig !== null) {
@@ -74,7 +78,11 @@ const SubjectListPage = () => {
 
   const handleSort = (key: string) => {
     let direction = "ascending";
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
       direction = "descending";
     }
     setSortConfig({ key, direction });

@@ -2,7 +2,13 @@ import Announcements from "@/components/Announcements";
 import BigCalendar from "@/components/LargeCalender";
 import FormModal from "@/components/FormModal";
 import { BiDonateBlood } from "react-icons/bi";
-import { EnvelopeIcon, CalendarDaysIcon, PhoneIcon, UserPlusIcon, ClipboardDocumentCheckIcon,  } from "@heroicons/react/24/outline";
+import {
+  EnvelopeIcon,
+  CalendarDaysIcon,
+  PhoneIcon,
+  UserPlusIcon,
+  ClipboardDocumentCheckIcon,
+} from "@heroicons/react/24/outline";
 import { GiSpellBook } from "react-icons/gi";
 import { SiGoogleclassroom } from "react-icons/si";
 import Performance from "@/components/Performance";
@@ -79,9 +85,7 @@ const SingleTeacherPage = () => {
           <div className="flex-1 flex gap-4 justify-between flex-wrap">
             {/* CARD */}
             <div className="bg-white dark:bg-slate-900 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200 dark:border-slate-800">
-              <UserPlusIcon
-                className="w-6 h-6"
-              />
+              <UserPlusIcon className="w-6 h-6" />
               <div className="">
                 <h1 className="text-xl font-semibold">90%</h1>
                 <span className="text-sm text-gray-400">Attendance</span>
@@ -89,9 +93,7 @@ const SingleTeacherPage = () => {
             </div>
             {/* CARD */}
             <div className="bg-white dark:bg-slate-900 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200 dark:border-slate-800">
-              <ClipboardDocumentCheckIcon
-                className="w-6 h-6"
-              />
+              <ClipboardDocumentCheckIcon className="w-6 h-6" />
               <div className="">
                 <h1 className="text-xl font-semibold">2</h1>
                 <span className="text-sm text-gray-400">Branches</span>
@@ -99,9 +101,7 @@ const SingleTeacherPage = () => {
             </div>
             {/* CARD */}
             <div className="bg-white dark:bg-slate-900 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200 dark:border-slate-800">
-              <GiSpellBook
-                className="w-8 h-8"
-              />
+              <GiSpellBook className="w-8 h-8" />
               <div className="">
                 <h1 className="text-xl font-semibold">6</h1>
                 <span className="text-sm text-gray-400">Lessons</span>
@@ -109,9 +109,7 @@ const SingleTeacherPage = () => {
             </div>
             {/* CARD */}
             <div className="bg-white dark:bg-slate-900 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200 dark:border-slate-800">
-              <SiGoogleclassroom
-                className="w-8 h-8"
-              />
+              <SiGoogleclassroom className="w-8 h-8" />
               <div className="">
                 <h1 className="text-xl font-semibold">6</h1>
                 <span className="text-sm text-gray-400">Classes</span>
@@ -120,7 +118,7 @@ const SingleTeacherPage = () => {
           </div>
         </div>
         {/* BOTTOM */}
-        <div className="mt-4 bg-white dark:bg-slate-900 rounded-md p-4 h-[800px] border-2 border-gray-200 dark:border-slate-800"> 
+        <div className="mt-4 bg-white dark:bg-slate-900 rounded-md p-4 h-[800px] border-2 border-gray-200 dark:border-slate-800">
           <h1>Teacher&apos;s Schedule</h1>
           <BigCalendar />
         </div>

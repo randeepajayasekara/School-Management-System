@@ -51,7 +51,9 @@ const AnnouncementListPage = () => {
     setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
   };
 
-  const handleClassFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleClassFilterChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedClass(event.target.value);
     setCurrentPage(1); // Reset to the first page on new filter
   };
@@ -68,8 +70,8 @@ const AnnouncementListPage = () => {
   const filteredData = sortedData.filter(
     (item) =>
       (item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.class.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.date.toLowerCase().includes(searchQuery.toLowerCase())) &&
+        item.class.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.date.toLowerCase().includes(searchQuery.toLowerCase())) &&
       (selectedClass === "" || item.class === selectedClass)
   );
 
@@ -114,7 +116,11 @@ const AnnouncementListPage = () => {
             className="border rounded p-2 text-sm dark:bg-transparent dark:border-gray-700"
           >
             <option value="">All Classes</option>
-            {[...new Set(announcementsData.map((announcement) => announcement.class))].map((className) => (
+            {[
+              ...new Set(
+                announcementsData.map((announcement) => announcement.class)
+              ),
+            ].map((className) => (
               <option key={className} value={className}>
                 {className}
               </option>

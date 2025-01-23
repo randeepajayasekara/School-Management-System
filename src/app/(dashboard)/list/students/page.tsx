@@ -86,17 +86,21 @@ const StudentListPage = () => {
     return 0;
   });
 
-  const filteredData = sortedData.filter((student) =>
-    student.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    student.studentId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    student.grade.toString().includes(searchQuery.toLowerCase()) ||
-    student.class.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    student.phone?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    student.address.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredData = sortedData.filter(
+    (student) =>
+      student.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.studentId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.grade.toString().includes(searchQuery.toLowerCase()) ||
+      student.class.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.phone?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.address.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const itemsPerPage = 9;
-  const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const renderRow = (item: Student) => (
     <tr
@@ -159,9 +163,7 @@ const StudentListPage = () => {
             >
               <ArrowTrendingDownIcon className="w-5 h-5 text-gray-400" />
             </button>
-            {role === "admin" && (
-              <FormModal table="student" type="create" />
-            )}
+            {role === "admin" && <FormModal table="student" type="create" />}
           </div>
         </div>
       </div>

@@ -72,29 +72,36 @@ const ResultListPage = () => {
     setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
   };
 
-  const handleSubjectFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSubjectFilterChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSubjectFilter(event.target.value);
     setCurrentPage(1);
   };
 
-  const handleTeacherFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTeacherFilterChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setTeacherFilter(event.target.value);
     setCurrentPage(1);
   };
 
-  const handleClassFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleClassFilterChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setClassFilter(event.target.value);
     setCurrentPage(1);
   };
 
-  const filteredData = resultsData.filter((item) =>
-    (subjectFilter === "" || item.subject === subjectFilter) &&
-    (teacherFilter === "" || item.teacher === teacherFilter) &&
-    (classFilter === "" || item.class === classFilter) &&
-    (item.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.student.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.teacher.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.class.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredData = resultsData.filter(
+    (item) =>
+      (subjectFilter === "" || item.subject === subjectFilter) &&
+      (teacherFilter === "" || item.teacher === teacherFilter) &&
+      (classFilter === "" || item.class === classFilter) &&
+      (item.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.student.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.teacher.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.class.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const sortedData = filteredData.sort((a, b) => {
@@ -143,32 +150,50 @@ const ResultListPage = () => {
           <TableSearch onSearch={handleSearch} />
           <div className="flex flex-col md:flex-row items-center gap-4 self-end text-sm">
             <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-flow-row gap-4 w-full">
-              <select value={subjectFilter} onChange={handleSubjectFilterChange} className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent">
-              <option value="">All Subjects</option>
-              {/* Add options dynamically based on available subjects */}
-              {Array.from(new Set(resultsData.map((item) => item.subject))).map((subject) => (
-                <option key={subject} value={subject}>
-                {subject}
-                </option>
-              ))}
+              <select
+                value={subjectFilter}
+                onChange={handleSubjectFilterChange}
+                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent"
+              >
+                <option value="">All Subjects</option>
+                {/* Add options dynamically based on available subjects */}
+                {Array.from(
+                  new Set(resultsData.map((item) => item.subject))
+                ).map((subject) => (
+                  <option key={subject} value={subject}>
+                    {subject}
+                  </option>
+                ))}
               </select>
-              <select value={teacherFilter} onChange={handleTeacherFilterChange} className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent">
-              <option value="">All Teachers</option>
-              {/* Add options dynamically based on available teachers */}
-              {Array.from(new Set(resultsData.map((item) => item.teacher))).map((teacher) => (
-                <option key={teacher} value={teacher}>
-                {teacher}
-                </option>
-              ))}
+              <select
+                value={teacherFilter}
+                onChange={handleTeacherFilterChange}
+                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent"
+              >
+                <option value="">All Teachers</option>
+                {/* Add options dynamically based on available teachers */}
+                {Array.from(
+                  new Set(resultsData.map((item) => item.teacher))
+                ).map((teacher) => (
+                  <option key={teacher} value={teacher}>
+                    {teacher}
+                  </option>
+                ))}
               </select>
-              <select value={classFilter} onChange={handleClassFilterChange} className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent">
-              <option value="">All Classes</option>
-              {/* Add options dynamically based on available classes */}
-              {Array.from(new Set(resultsData.map((item) => item.class))).map((className) => (
-                <option key={className} value={className}>
-                {className}
-                </option>
-              ))}
+              <select
+                value={classFilter}
+                onChange={handleClassFilterChange}
+                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent"
+              >
+                <option value="">All Classes</option>
+                {/* Add options dynamically based on available classes */}
+                {Array.from(new Set(resultsData.map((item) => item.class))).map(
+                  (className) => (
+                    <option key={className} value={className}>
+                      {className}
+                    </option>
+                  )
+                )}
               </select>
             </div>
             <button

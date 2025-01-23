@@ -54,14 +54,15 @@ const ParentListPage = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
-    const filtered = parentsData.filter((parent) =>
-      parent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      parent.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      parent.students.some((student) =>
-        student.toLowerCase().includes(searchQuery.toLowerCase())
-      ) ||
-      parent.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      parent.address.toLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = parentsData.filter(
+      (parent) =>
+        parent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        parent.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        parent.students.some((student) =>
+          student.toLowerCase().includes(searchQuery.toLowerCase())
+        ) ||
+        parent.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        parent.address.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredData(filtered);
   }, [searchQuery]);

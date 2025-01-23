@@ -58,7 +58,9 @@ const EventListPage = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
-  const handleClassFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleClassFilterChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedClass(event.target.value);
   };
 
@@ -66,9 +68,7 @@ const EventListPage = () => {
     .filter((event) =>
       event.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
-    .filter((event) => 
-      selectedClass === "" || event.class === selectedClass
-    )
+    .filter((event) => selectedClass === "" || event.class === selectedClass)
     .sort((a, b) => {
       if (sortOrder === "asc") {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
@@ -118,14 +118,19 @@ const EventListPage = () => {
             className="border rounded p-2 text-sm dark:bg-transparent dark:border-gray-600"
           >
             <option value="">All Classes</option>
-            {[...new Set(eventsData.map((event) => event.class))].map((className) => (
-              <option key={className} value={className}>
-                {className}
-              </option>
-            ))}
+            {[...new Set(eventsData.map((event) => event.class))].map(
+              (className) => (
+                <option key={className} value={className}>
+                  {className}
+                </option>
+              )
+            )}
           </select>
           <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700" onClick={handleSort}>
+            <button
+              className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
+              onClick={handleSort}
+            >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
             </button>
             {role === "admin" && <FormModal table="event" type="create" />}

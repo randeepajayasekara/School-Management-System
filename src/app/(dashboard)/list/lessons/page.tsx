@@ -41,7 +41,10 @@ const LessonListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortConfig, setSortConfig] = useState<{ key: keyof Lesson; direction: string } | null>(null);
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof Lesson;
+    direction: string;
+  } | null>(null);
 
   useEffect(() => {
     let filtered = lessonsData.filter((lesson) =>
@@ -73,7 +76,11 @@ const LessonListPage = () => {
 
   const handleSort = (key: keyof Lesson) => {
     let direction = "ascending";
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
       direction = "descending";
     }
     setSortConfig({ key, direction });

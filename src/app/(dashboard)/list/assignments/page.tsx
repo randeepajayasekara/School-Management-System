@@ -44,16 +44,20 @@ const columns = [
 const AssignmentListPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(assignmentsData);
-  const [sortConfig, setSortConfig] = useState<{ key: keyof Assignment; direction: string } | null>(null);
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof Assignment;
+    direction: string;
+  } | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
-    let filtered = assignmentsData.filter((assignment) =>
-      assignment.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      assignment.class.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      assignment.teacher.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      assignment.dueDate.toLowerCase().includes(searchQuery.toLowerCase())
+    let filtered = assignmentsData.filter(
+      (assignment) =>
+        assignment.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        assignment.class.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        assignment.teacher.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        assignment.dueDate.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     if (sortConfig) {
@@ -90,7 +94,11 @@ const AssignmentListPage = () => {
 
   const handleSort = (key: keyof Assignment) => {
     let direction = "ascending";
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
       direction = "descending";
     }
     setSortConfig({ key, direction });
@@ -120,7 +128,10 @@ const AssignmentListPage = () => {
 
   // Pagination logic
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <div className="bg-white dark:bg-slate-900 p-4 rounded-md flex-1 m-4 mt-0 border-2 border-gray-200 dark:border-gray-700">
@@ -132,7 +143,10 @@ const AssignmentListPage = () => {
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch onSearch={handleSearch} />
           <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700" onClick={() => handleSort("dueDate")}>
+            <button
+              className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
+              onClick={() => handleSort("dueDate")}
+            >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400 " />
             </button>
             {(role === "admin" || role === "teacher") && (

@@ -44,7 +44,10 @@ const columns = [
 const ExamListPage = () => {
   const [filteredData, setFilteredData] = useState<Exam[]>(examsData);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortConfig, setSortConfig] = useState<{ key: keyof Exam; direction: string } | null>(null);
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof Exam;
+    direction: string;
+  } | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(11);
   const [selectedSubject, setSelectedSubject] = useState("");
@@ -100,7 +103,11 @@ const ExamListPage = () => {
 
   const handleSort = (key: keyof Exam) => {
     let direction = "ascending";
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
       direction = "descending";
     }
     setSortConfig({ key, direction });
@@ -154,23 +161,35 @@ const ExamListPage = () => {
           <TableSearch onSearch={handleSearch} />
           <div className="flex items-center gap-2 md:flex-row sm:flex-col">
             <div>
-              <select onChange={handleSubjectChange} value={selectedSubject} className="border p-2 rounded text-sm mr-2 mb-2 md:mb-0 dark:bg-transparent">
+              <select
+                onChange={handleSubjectChange}
+                value={selectedSubject}
+                className="border p-2 rounded text-sm mr-2 mb-2 md:mb-0 dark:bg-transparent"
+              >
                 <option value="">All Subjects</option>
                 {/* Add options dynamically based on available subjects */}
-                {[...new Set(examsData.map((exam) => exam.subject))].map((subject) => (
-                  <option key={subject} value={subject}>
-                    {subject}
-                  </option>
-                ))}
+                {[...new Set(examsData.map((exam) => exam.subject))].map(
+                  (subject) => (
+                    <option key={subject} value={subject}>
+                      {subject}
+                    </option>
+                  )
+                )}
               </select>
-              <select onChange={handleClassChange} value={selectedClass} className="border p-2 rounded text-sm dark:bg-transparent">
+              <select
+                onChange={handleClassChange}
+                value={selectedClass}
+                className="border p-2 rounded text-sm dark:bg-transparent"
+              >
                 <option value="">All Classes</option>
                 {/* Add options dynamically based on available classes */}
-                {[...new Set(examsData.map((exam) => exam.class))].map((cls) => (
-                  <option key={cls} value={cls}>
-                    {cls}
-                  </option>
-                ))}
+                {[...new Set(examsData.map((exam) => exam.class))].map(
+                  (cls) => (
+                    <option key={cls} value={cls}>
+                      {cls}
+                    </option>
+                  )
+                )}
               </select>
             </div>
             <button
@@ -180,7 +199,9 @@ const ExamListPage = () => {
             >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
             </button>
-            {(role === "admin" || role === "teacher") && <FormModal table="exam" type="create" />}
+            {(role === "admin" || role === "teacher") && (
+              <FormModal table="exam" type="create" />
+            )}
           </div>
         </div>
       </div>
