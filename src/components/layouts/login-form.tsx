@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { cn } from "@/lib/utils";
@@ -24,7 +28,11 @@ export function LoginForm({
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
       // Fetch user role from Firestore
@@ -42,7 +50,7 @@ export function LoginForm({
           router.push("/admin");
         } else if (role === "teacher") {
           router.push("/teacher");
-        } else if (role === "student") {	
+        } else if (role === "student") {
           router.push("/student");
         } else if (role === "parent") {
           router.push("/parent");

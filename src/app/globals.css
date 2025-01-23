@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Poppins', "Inter";
+  font-family: "Poppins", "Inter";
 }
 
 .react-calendar {
@@ -221,4 +221,3 @@ body {
     --chart-5: 212 97% 87%;
   }
 }
-

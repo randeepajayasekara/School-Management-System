@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import "firebase/auth";
 import Link from "next/link";
 
-import { 
-    HomeIcon,
-    UsersIcon,
-    ClipboardDocumentCheckIcon,
-    IdentificationIcon,
-    PencilSquareIcon,
-    DocumentCheckIcon,
-    DocumentTextIcon,
-    PercentBadgeIcon,
-    CalendarDaysIcon,
-    MegaphoneIcon,
-    ArrowRightStartOnRectangleIcon,
- } from "@heroicons/react/24/outline";
+import {
+  HomeIcon,
+  UsersIcon,
+  ClipboardDocumentCheckIcon,
+  IdentificationIcon,
+  PencilSquareIcon,
+  DocumentCheckIcon,
+  DocumentTextIcon,
+  PercentBadgeIcon,
+  CalendarDaysIcon,
+  MegaphoneIcon,
+  ArrowRightStartOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaUserGraduate } from "react-icons/fa";
