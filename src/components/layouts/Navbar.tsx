@@ -101,7 +101,7 @@ const Navbar = () => {
                   height={75}
                   className="profile-picture rounded-full border-2 border-gray-200"
                 />
-                <div className="flex flex-col">
+                <div className="flex flex-col bg-zinc-100 dark:bg-slate-800 p-2 px-6 rounded-lg">
                   <h2 className="text-md">{userData.username}</h2>
                   <p className="text-xs">{userData.email}</p>
                   <p className="text-sm text-gray-500">{userData.nameRole}</p>

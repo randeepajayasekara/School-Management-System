@@ -6,7 +6,7 @@ const ParentPage = () => {
     <div className="flex-1 p-4 flex gap-4 flex-col xl:flex-row">
       {/* LEFT */}
       <div className="w-full xl:w-2/3">
-        <div className="h-full bg-white p-4 rounded-md border border-gray-400">
+        <div className="h-full bg-white dark:bg-slate-900 p-4 rounded-md border border-gray-400 dark:border-slate-800">
           <h1 className="text-xl font-semibold">Schedule (John Doe)</h1>
           <BigCalendar />
         </div>
