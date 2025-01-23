@@ -23,12 +23,16 @@ export default function LoginPage() {
           const role = userData.role;
 
           if (role === "admin") {
+            toast("Authorized: Admin");
             router.push("/admin");
           } else if (role === "teacher") {
+            toast("Authorized");
             router.push("/teacher");
           } else if (role === "student") {
+            toast("Student Authorized");
             router.push("/student");
           } else if (role === "parent") {
+            toast("Parent Authorized");
             router.push("/parent");
           }
         } else {

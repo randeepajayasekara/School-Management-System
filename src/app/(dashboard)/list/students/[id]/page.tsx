@@ -16,7 +16,7 @@ const SingleStudentPage = () => {
         {/* TOP */}
         <div className="flex flex-col lg:flex-row gap-4">
           {/* USER INFO CARD */}
-          <div className="bg-white py-6 px-4 rounded-md flex-1 flex gap-4 border-2 border-gray-200">
+          <div className="bg-white dark:bg-slate-900 dark:border-slate-800 py-6 px-4 rounded-md flex-1 flex gap-4 border-2 border-gray-200">
             <div className="w-1/3">
               <Image
                 src="https://images.pexels.com/photos/5414817/pexels-photo-5414817.jpeg?auto=compress&cs=tinysrgb&w=1200"
@@ -54,7 +54,7 @@ const SingleStudentPage = () => {
           {/* SMALL CARDS */}
           <div className="flex-1 flex gap-4 justify-between flex-wrap">
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
+            <div className="bg-white dark:bg-slate-900 dark:border-slate-800 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
             <UserPlusIcon
                 className="w-6 h-6"
               />
@@ -64,7 +64,7 @@ const SingleStudentPage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
+            <div className="bg-white dark:bg-slate-900 dark:border-slate-800 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
             <ClipboardDocumentCheckIcon
                 className="w-6 h-6"
               />
@@ -74,7 +74,7 @@ const SingleStudentPage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
+            <div className="bg-white dark:bg-slate-900 dark:border-slate-800 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
               <GiSpellBook
                 className="w-8 h-8"
               />
@@ -84,7 +84,7 @@ const SingleStudentPage = () => {
               </div>
             </div>
             {/* CARD */}
-            <div className="bg-white p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
+            <div className="bg-white dark:bg-slate-900 dark:border-slate-800 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
               <SiGoogleclassroom
                 className="w-8 h-8"
               />
@@ -96,7 +96,7 @@ const SingleStudentPage = () => {
           </div>
         </div>
         {/* BOTTOM */}
-        <div className="mt-4 bg-white rounded-md p-4 h-[800px] border-2 border-gray-200">
+        <div className="mt-4 bg-white dark:bg-slate-900 dark:border-slate-800 rounded-md p-4 h-[800px] border-2 border-gray-200">
           <h1>Student&apos;s Schedule</h1>
           <BigCalendar />
         </div>
