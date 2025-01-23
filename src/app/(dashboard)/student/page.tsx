@@ -9,7 +9,7 @@ const StudentPage = () => {
       <div className="w-full xl:w-2/3">
         <div className="h-full bg-white p-4 rounded-md border-2 border-gray-200">
           <h1 className="text-xl font-semibold">Schedule (4A)</h1>
-          <BigCalendar/>
+          <BigCalendar />
         </div>
       </div>
       {/* RIGHT */}
