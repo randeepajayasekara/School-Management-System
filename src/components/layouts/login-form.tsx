@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { cn } from "@/lib/utils";
@@ -50,18 +50,28 @@ export function LoginForm({
           toast.error("User role not found.");
         }
       } else {
-        toast.error("User role not found.");
+        toast.error("User is not authorized by system");
       }
     } catch (error) {
-      toast.error("Failed to login. Please check your credentials.");
+      toast.error("Failed to login. Please check your credentials");
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      toast.error("Please enter your email address.");
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Password reset email sent.");
+    } catch (error) {
+      toast.error("Failed to send password reset email.");
     }
   };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <div>
-        <Toaster position="bottom-center" reverseOrder={false} />
-      </div>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={handleLogin}>
@@ -77,7 +87,7 @@ export function LoginForm({
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="username@school.com"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -87,8 +97,8 @@ export function LoginForm({
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                   <span
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                    onClick={() => toast("This feature will be available soon...")}
+                    className="ml-auto text-sm underline-offset-2 hover:underline cursor-pointer"
+                    onClick={handleForgotPassword}
                   >
                     Forgot your password?
                   </span>

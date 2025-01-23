@@ -32,7 +32,7 @@ export default function LoginPage() {
             router.push("/parent");
           }
         } else {
-          toast("Login");
+          console.log("User need to login to the system");
         }
       }
     });
