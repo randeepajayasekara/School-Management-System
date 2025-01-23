@@ -35,7 +35,7 @@ const EventCalendar = () => {
   const [value, onChange] = useState<Value>(new Date());
 
   return (
-    <div className="bg-white dark:bg-slate-900 p-4 rounded-md border-2 border-gray-200 dark:border-gray-800">
+    <div className="bg-white dark:bg-slate-900 p-4 rounded-md border-2 border-gray-200 dark:border-gray-800 z-10">
       <Calendar onChange={onChange} value={value} />
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold my-4">Events</h1>

@@ -53,8 +53,8 @@ const FormModal = ({
     type === "create"
       ? "bg-gray-600"
       : type === "update"
-      ? "bg-zinc-200"
-      : "bg-red-400 p-1";
+      ? "bg-zinc-400 p-1 dark:bg-zinc-800 dark:border-none"
+      : "bg-red-400 p-1 dark:border-none";
 
   const [open, setOpen] = useState(false);
 
