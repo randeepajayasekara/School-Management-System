@@ -35,7 +35,7 @@ const CountChart = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-fit p-4 border-2 border-zinc-300 dark:border-slate-800">
+    <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-fit p-4 border-2 border-zinc-300 dark:border-slate-800 z-20">
       {/* TITLE */}
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-semibold">Students</h1>

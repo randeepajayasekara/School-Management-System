@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ModeToggle } from "../theme/mode-toggle";
+
 const Navbar = () => {
   const [user, setUser] = useState<User | null>(null);
   interface UserData {
@@ -89,25 +90,25 @@ const Navbar = () => {
                 alt="Profile Picture"
                 width={32}
                 height={32}
-                className="h-8 w-8 border rounded-full"
+                className="h-10 w-10 border rounded-full object-cover"
               />
             </PopoverTrigger>
             <PopoverContent>
-              <div className="flex flex-row items-center gap-2 p-1">
+              <div className="flex flex-col items-center gap-2 p-1">
                 <Image
                   src={userData.profilePicture}
                   alt="Profile Picture"
-                  width={75}
+                  width={100}
                   height={75}
-                  className="profile-picture rounded-full border-2 border-gray-200"
+                  className="profile-picture rounded-full border-2 border-gray-200 object-cover"
                 />
-                <div className="flex flex-col bg-zinc-100 dark:bg-slate-800 p-2 px-6 rounded-lg">
+                <div className="flex flex-col p-2 px-6 rounded-lg items-center justify-center">
                   <h2 className="text-md">{userData.username}</h2>
                   <p className="text-xs">{userData.email}</p>
                   <p className="text-sm text-gray-500">{userData.nameRole}</p>
                   <Button
                     variant="destructive"
-                    className="mt-2"
+                    className="mt-4"
                     onClick={() => {
                       const auth = getAuth();
                       auth.signOut().then(() => {
