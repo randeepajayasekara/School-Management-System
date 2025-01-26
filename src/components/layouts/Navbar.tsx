@@ -113,7 +113,7 @@ const Navbar = () => {
                 <div className="flex flex-col p-2 px-6 rounded-lg items-center justify-center">
                   <h2 className="text-md">{userData.username}</h2>
                   <p className="text-xs">{userData.email}</p>
-                  <p className="text-sm text-gray-500">{userData.nameRole}</p>
+                  <p className="text-sm text-gray-200 md:text-gray-500">{userData.nameRole}</p>
                   <Button
                     variant="destructive"
                     className="mt-4"
