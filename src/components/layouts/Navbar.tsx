@@ -53,6 +53,14 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleLogout = () => {
+    const auth = getAuth();
+    auth.signOut().then(() => {
+      localStorage.removeItem("userRole");
+      window.location.href = "/";
+    });
+  };
+
   return (
     <div className="flex items-center justify-between p-4">
       {/* ICONS AND USER */}
@@ -109,14 +117,7 @@ const Navbar = () => {
                   <Button
                     variant="destructive"
                     className="mt-4"
-                    onClick={() => {
-                      const auth = getAuth();
-                      auth.signOut().then(() => {
-                        setUser(null);
-                        setUserData(null);
-                        window.location.href = "/";
-                      });
-                    }}
+                    onClick={handleLogout}
                   >
                     Logout
                   </Button>
