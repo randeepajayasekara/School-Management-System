@@ -113,7 +113,7 @@ const AnnouncementListPage = () => {
           <select
             value={selectedClass}
             onChange={handleClassFilterChange}
-            className="border rounded p-2 text-sm dark:bg-transparent dark:border-gray-700"
+            className="border rounded p-2 text-sm dark:bg-slate-800 dark:border-gray-700"
           >
             <option value="">All Classes</option>
             {[

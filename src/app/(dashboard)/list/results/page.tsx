@@ -153,7 +153,7 @@ const ResultListPage = () => {
               <select
                 value={subjectFilter}
                 onChange={handleSubjectFilterChange}
-                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent"
+                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-slate-800"
               >
                 <option value="">All Subjects</option>
                 {/* Add options dynamically based on available subjects */}
@@ -168,7 +168,7 @@ const ResultListPage = () => {
               <select
                 value={teacherFilter}
                 onChange={handleTeacherFilterChange}
-                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent"
+                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-slate-800"
               >
                 <option value="">All Teachers</option>
                 {/* Add options dynamically based on available teachers */}
@@ -183,7 +183,7 @@ const ResultListPage = () => {
               <select
                 value={classFilter}
                 onChange={handleClassFilterChange}
-                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-transparent"
+                className="border dark:border-gray-700 rounded-full p-1 w-full dark:bg-slate-800"
               >
                 <option value="">All Classes</option>
                 {/* Add options dynamically based on available classes */}

@@ -164,7 +164,7 @@ const ExamListPage = () => {
               <select
                 onChange={handleSubjectChange}
                 value={selectedSubject}
-                className="border p-2 rounded text-sm mr-2 mb-2 md:mb-0 dark:bg-transparent"
+                className="border p-2 rounded text-sm mr-2 mb-2 md:mb-0 dark:bg-slate-800"
               >
                 <option value="">All Subjects</option>
                 {/* Add options dynamically based on available subjects */}
@@ -179,7 +179,7 @@ const ExamListPage = () => {
               <select
                 onChange={handleClassChange}
                 value={selectedClass}
-                className="border p-2 rounded text-sm dark:bg-transparent"
+                className="border p-2 rounded text-sm dark:bg-slate-800"
               >
                 <option value="">All Classes</option>
                 {/* Add options dynamically based on available classes */}

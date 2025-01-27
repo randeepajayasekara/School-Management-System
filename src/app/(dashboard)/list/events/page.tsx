@@ -115,7 +115,7 @@ const EventListPage = () => {
           <select
             value={selectedClass}
             onChange={handleClassFilterChange}
-            className="border rounded p-2 text-sm dark:bg-transparent dark:border-gray-600"
+            className="border rounded p-2 text-sm dark:bg-slate-800 dark:border-gray-600"
           >
             <option value="">All Classes</option>
             {[...new Set(eventsData.map((event) => event.class))].map(
