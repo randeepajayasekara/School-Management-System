@@ -11,71 +11,32 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
-const data = [
-  {
-    name: "Jan",
-    Income: 4000,
-    Expense: 2400,
-  },
-  {
-    name: "Feb",
-    Income: 3000,
-    Expense: 1398,
-  },
-  {
-    name: "Mar",
-    Income: 2000,
-    Expense: 9800,
-  },
-  {
-    name: "Apr",
-    Income: 2780,
-    Expense: 3908,
-  },
-  {
-    name: "May",
-    Income: 1890,
-    Expense: 4800,
-  },
-  {
-    name: "Jun",
-    Income: 2390,
-    Expense: 3800,
-  },
-  {
-    name: "Jul",
-    Income: 3490,
-    Expense: 4300,
-  },
-  {
-    name: "Aug",
-    Income: 3490,
-    Expense: 4300,
-  },
-  {
-    name: "Sep",
-    Income: 3490,
-    Expense: 4300,
-  },
-  {
-    name: "Oct",
-    Income: 3490,
-    Expense: 4300,
-  },
-  {
-    name: "Nov",
-    Income: 3490,
-    Expense: 4300,
-  },
-  {
-    name: "Dec",
-    Income: 3490,
-    Expense: 4300,
-  },
-];
+import { useEffect, useState } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { app } from "@/firebase/firebase"; 
 
 const FinanceChart = () => {
+  const [data, setData] = useState<{ name: string; Income: number; Expense: number }[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = getDatabase(app);
+      const dataRef = ref(db, 'financeData');
+      onValue(dataRef, (snapshot) => {
+        const data = snapshot.val();
+        const financeData = data ? data.map((item: any) => ({
+          name: item.name,
+          Income: item.Income,
+          Expense: item.Expense,
+        })) : [];
+        setData(financeData);
+      });
+    };
+
+    fetchData();
+  }, []);
+
+
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-full p-4 border-2 border-sky-200 dark:border-slate-800 z-10">
       <div className="flex justify-between items-center">
