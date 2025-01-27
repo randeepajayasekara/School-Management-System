@@ -98,7 +98,7 @@ const Navbar = () => {
                 alt="Profile Picture"
                 width={32}
                 height={32}
-                className="h-10 w-10 border rounded-full object-cover"
+                className="h-10 w-10 border dark:border-gray-700 rounded-full object-cover"
               />
             </PopoverTrigger>
             <PopoverContent>
@@ -126,7 +126,7 @@ const Navbar = () => {
             </PopoverContent>
           </Popover>
         ) : (
-          <UserIcon className="h-8 w-8 border rounded-full p-1" />
+          <UserIcon className="h-8 w-8 border dark:border-gray-600 rounded-full p-1" />
         )}
       </div>
     </div>
