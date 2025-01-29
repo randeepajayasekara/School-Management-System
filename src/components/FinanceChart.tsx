@@ -1,6 +1,9 @@
 "use client";
 
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import {
+  EllipsisHorizontalIcon,
+  CloudArrowDownIcon,
+} from "@heroicons/react/24/outline";
 import {
   LineChart,
   Line,
@@ -13,29 +16,55 @@ import {
 } from "recharts";
 import { useEffect, useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { app } from "@/firebase/firebase"; 
+import { app } from "@/firebase/firebase";
 
 const FinanceChart = () => {
-  const [data, setData] = useState<{ name: string; Income: number; Expense: number }[]>([]);
+  const [data, setData] = useState<
+    { name: string; Income: number; Expense: number }[]
+  >([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const db = getDatabase(app);
-      const dataRef = ref(db, 'financeData');
-      onValue(dataRef, (snapshot) => {
-        const data = snapshot.val();
-        const financeData = data ? data.map((item: any) => ({
-          name: item.name,
-          Income: item.Income,
-          Expense: item.Expense,
-        })) : [];
-        setData(financeData);
-      });
+      try {
+        const db = getDatabase(app);
+        const dataRef = ref(db, "financeData");
+        onValue(
+          dataRef,
+          (snapshot) => {
+            const data = snapshot.val();
+            const financeData = data
+              ? data.map((item: any) => ({
+                  name: item.name,
+                  Income: item.Income,
+                  Expense: item.Expense,
+                }))
+              : [];
+            setData(financeData);
+            setLoading(false);
+          },
+          (error) => {
+            setError(error.message);
+            setLoading(false);
+          }
+        );
+      } catch (err) {
+        setError((err as any).message);
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, []);
 
+  if (loading) {
+    return <div className="justify-end h-6 w-6 animate-bounce"><CloudArrowDownIcon /></div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-full p-4 border-2 border-sky-200 dark:border-slate-800 z-10">
@@ -69,7 +98,12 @@ const FinanceChart = () => {
             tickLine={false}
             tickMargin={20}
           />
-          <Tooltip />
+          <Tooltip
+            labelStyle={{ color: "#808286" }}
+            formatter={(value: number) =>
+              new Intl.NumberFormat("en").format(value)
+            }
+          />
           <Legend
             align="center"
             verticalAlign="top"
