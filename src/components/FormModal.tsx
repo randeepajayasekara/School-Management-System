@@ -67,7 +67,10 @@ const FormModal = ({
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
-    if (!id) return;
+    if (!id) {
+      toast.error("ID is required to delete the item.");
+      return;
+    }
 
     const db: Database = getDatabase();
     const itemRef = ref(db, `${table}/${id}`);
