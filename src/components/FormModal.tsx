@@ -100,7 +100,7 @@ const FormModal = ({
         }}
         className="p-4 flex flex-col gap-4"
       >
-        <span className="text-center font-medium">
+        <span className="text-center font-medium dark:text-black">
           All data will be lost. Are you sure you want to delete this {table}?
         </span>
         <button
