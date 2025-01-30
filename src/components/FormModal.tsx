@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { JSX } from "react";
-import Image from "next/image";
 import {
   TrashIcon,
   XMarkIcon,
@@ -10,16 +9,18 @@ import {
   PencilIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { getDatabase, ref, remove, get, Database } from "firebase/database";
+import { toast } from "react-hot-toast";
 
 // USE LAZY LOADING
-
-// import TeacherForm from "./forms/TeacherForm";
-// import StudentForm from "./forms/StudentForm";
 
 const TeacherForm = dynamic(() => import("@/components/forms/TeacherForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 const StudentForm = dynamic(() => import("@/components/forms/StudentForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+const EventForm = dynamic(() => import("@/components/forms/EventForm"), {
   loading: () => <h1>Loading...</h1>,
 });
 
@@ -28,6 +29,7 @@ const forms: {
 } = {
   teacher: (type, data) => <TeacherForm type={type} data={data} />,
   student: (type, data) => <StudentForm type={type} data={data} />,
+  event: (type, data) => <EventForm type={type} data={data} />,
 };
 
 const FormModal = ({
@@ -51,7 +53,7 @@ const FormModal = ({
     | "announcement";
   type: "create" | "update" | "delete";
   data?: any;
-  id?: number;
+  id?: string;
 }) => {
   const size = type === "create" ? "w-8 h-8" : "w-7 h-7";
   const bgColor =
@@ -62,15 +64,51 @@ const FormModal = ({
       : "bg-red-400 p-1 dark:border-none";
 
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleDelete = async () => {
+    if (!id) return;
+
+    const db: Database = getDatabase();
+    const itemRef = ref(db, `${table}/${id}`);
+    setLoading(true);
+
+    const snapshot = await get(itemRef);
+    if (!snapshot.exists()) {
+      toast.error(`${table.charAt(0).toUpperCase() + table.slice(1)} not found`);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      await remove(itemRef);
+      toast.success(`${table.charAt(0).toUpperCase() + table.slice(1)} deleted successfully`);
+      setOpen(false);
+    } catch (error) {
+      toast.error(`Error deleting ${table}: ${(error as any).message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const Form = () => {
     return type === "delete" && id ? (
-      <form action="" className="p-4 flex flex-col gap-4">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleDelete();
+        }}
+        className="p-4 flex flex-col gap-4"
+      >
         <span className="text-center font-medium">
           All data will be lost. Are you sure you want to delete this {table}?
         </span>
-        <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center hover:bg-red-800 duration-150">
-          Delete
+        <button
+          type="submit"
+          className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center hover:bg-red-800 duration-150"
+          disabled={loading}
+        >
+          {loading ? "Deleting..." : "Delete"}
         </button>
       </form>
     ) : type === "create" || type === "update" ? (
@@ -98,7 +136,7 @@ const FormModal = ({
               className="absolute top-4 right-4 cursor-pointer"
               onClick={() => setOpen(false)}
             >
-              <XMarkIcon className="h-6 w-6 hover:bg-gray-100 rounded-full hover:p-1 duration-300" />
+              <XMarkIcon className="h-6 w-6 hover:bg-gray-100 dark:text-black rounded-full hover:p-1 duration-300" />
             </div>
           </div>
         </div>

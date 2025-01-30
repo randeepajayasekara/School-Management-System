@@ -5,8 +5,9 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { eventsData, role } from "@/lib/data";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 type Event = {
   id: number;
@@ -48,6 +49,26 @@ const columns = [
 ];
 
 const EventListPage = () => {
+  const [eventsData, setEventsData] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const db = getDatabase();
+    const eventsRef = ref(db, "eventsData");
+    const roleRef = ref(db, "userRole");
+
+    onValue(eventsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setEventsData(Object.values(data));
+      }
+    });
+
+    onValue(roleRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+      }
+    });
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -94,12 +115,12 @@ const EventListPage = () => {
       <td className="hidden md:table-cell">{item.endTime}</td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" && (
-            <>
-              <FormModal table="event" type="update" data={item} />
-              <FormModal table="event" type="delete" id={item.id} />
-            </>
-          )}
+          {typeof window !== "undefined" &&
+            localStorage.getItem("userRole") === "admin" && (
+              <>
+                <FormModal table="event" type="update" data={item} />
+              </>
+            )}
         </div>
       </td>
     </tr>
@@ -133,7 +154,10 @@ const EventListPage = () => {
             >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
             </button>
-            {role === "admin" && <FormModal table="event" type="create" />}
+            {typeof window !== "undefined" &&
+              localStorage.getItem("userRole") === "admin" && (
+                <FormModal table="event" type="create" />
+              )}
           </div>
         </div>
       </div>
