@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Intro_Asset](https://github.com/user-attachments/assets/9e78ebeb-9060-45e2-a9dd-f5ab4225c979)
 
-## Getting Started
+# School Management System
 
-First, run the development server:
+A comprehensive school management system for the school administration that manages students, teachers, and parents. Empowering both students and staff.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Table of Contents
+- [Purpose](#purpose)
+- [Features](#features)
+- [Usage & Installation](#usage)
+- [Technologies Used](#technologies-used)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Purpose
+  The purpose of this School Management System project is to provide a **comprehensive solution** for school administration to efficiently manage ***students, teachers, and parents***. It aims to empower both students and staff by offering features such as attendance tracking, grade management, timetable scheduling, parent-teacher communication, and detailed reports and analytics.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Manage students, teachers, and parents
+- Track attendance and grades
+- Timetable management
+- Communication between parents and teachers
+- Reports and analytics
 
-## Learn More
+## Usage 
 
-To learn more about Next.js, take a look at the following resources:
+To install the project, follow these steps:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/randeepajayasekara/School-Management-System.git
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Navigate to the project directory <br/>
+   ```bash
+     cd School-Management-System
 
-## Deploy on Vercel
+3. Install the dependencies:
+    ```bash
+      pnpm i
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. To run the project locally, use the following command:
+     ```bash
+       pnpm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. To build the project for production, use the following commands:
+     ```bash
+       pnpm run build
+     
+       pnpm run start (To preview)
+<hr/>
+
+## Technologies Used
+
+- **Top Languages**:
+  - TypeScript (97.3%)
+  - CSS (2.4%)
+  - JavaScript (0.3%)
+
+- **Frameworks and Libraries**:
+  - Next.js **(Main React Framework)**
+  - Tailwind CSS
+  - Firebase
+
+- **State Management and Form Handling**:
+  - React Hook Form
+  - Zod
+
+- **UI Components and Icons**:
+  - Headless UI
+  - Heroicons
+  - Radix UI
+  - Lucide React
+  - React Icons
+
+- **Utilities and Helpers**:
+  - Date-fns
+  - Moment
+  - clsx
+  - Class Variance Authority
+
+- **Testing**:
+  - Jest
+  - @types/jest
+
+- **Other**:
+  - Next Cloudinary
+  - Next Themes
+  - React Big Calendar
+  - React Day Picker
+  - React Hot Toast
+  - React Toastify
+  - Recharts
+
+  
+<img
+  height="100"
+  width="100%"
+  src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2FzcDh2MW83YzUyajlvNnV2MmNhbXBnYXpjM2ZkdG9zaHN4bmJscyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/w5ycESZxQbFlSuRm7M/giphy.webp"
+  alt="ending_reference"
+/>
