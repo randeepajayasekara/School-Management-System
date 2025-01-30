@@ -5,7 +5,7 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { announcementsData, role } from "@/lib/data";
+import { announcementsData } from "@/lib/data";
 import { ArrowsUpDownIcon } from "@heroicons/react/20/solid";
 
 type Announcement = {
@@ -90,12 +90,12 @@ const AnnouncementListPage = () => {
       <td className="hidden md:table-cell">{item.date}</td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" && (
+            {typeof window !== "undefined" && localStorage.getItem("userRole") === "admin" && (
             <>
               <FormModal table="announcement" type="update" data={item} />
               <FormModal table="announcement" type="delete" data={item.id} />
             </>
-          )}
+            )}
         </div>
       </td>
     </tr>
@@ -133,7 +133,7 @@ const AnnouncementListPage = () => {
             >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
             </button>
-            {role === "admin" && (
+            {typeof window !== "undefined" && localStorage.getItem("userRole") === "admin" && (
               <FormModal table="announcement" type="create" />
             )}
           </div>

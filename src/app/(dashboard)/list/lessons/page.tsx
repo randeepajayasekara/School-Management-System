@@ -6,7 +6,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
-import { lessonsData, role } from "@/lib/data";
+import { lessonsData } from "@/lib/data";
 
 type Lesson = {
   id: number;
