@@ -1,47 +1,51 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { role, studentsData } from "@/lib/data";
 import {
-  ArrowTrendingDownIcon,
   ArrowsUpDownIcon,
   EyeIcon,
-} from "@heroicons/react/20/solid";
+} from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 
 type Student = {
-  id: number;
-  studentId: string;
-  name: string;
+  id: string;
+  studentUid: string;
+  username: string;
   email?: string;
-  photo: string;
-  phone?: string;
-  grade: number;
-  class: string;
+  imageUrl: string;
+  phone: string;
+  birthday: string;
+  bloodType: string;
   address: string;
+  class: string;
 };
 
 const columns = [
   {
     header: "Info",
     accessor: "info",
-    sortable: true,
   },
   {
     header: "Student ID",
-    accessor: "studentId",
+    accessor: "studentUid",
     className: "hidden md:table-cell",
   },
   {
-    header: "Grade",
-    accessor: "grade",
+    header: "Birthdate",
+    accessor: "birthday",
     className: "hidden md:table-cell",
-    sortable: true,
+  },
+  {
+    header: "Blood Type",
+    accessor: "bloodType",
+    className: "hidden md:table-cell",
   },
   {
     header: "Phone",
@@ -54,46 +58,111 @@ const columns = [
     className: "hidden lg:table-cell",
   },
   {
+    header: "Class",
+    accessor: "class",
+    className: "hidden lg:table-cell",
+  },
+  {
     header: "Actions",
     accessor: "action",
   },
 ];
 
 const StudentListPage = () => {
+  const [studentsData, setStudentsData] = useState<Student[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [sortColumn, setSortColumn] = useState<string>("name");
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: string;
+  } | null>(null);
+  const [filters, setFilters] = useState<{
+    subject: string;
+    className: string;
+  }>({ subject: "", className: "" });
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      const q = query(collection(db, "users"), where("role", "==", "student"));
+      const querySnapshot = await getDocs(q);
+      const studentsList: Student[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        studentsList.push({
+          id: doc.id,
+          studentUid: data.id,
+          username: data.username,
+          email: data.email,
+          imageUrl: data.profilePicture,
+          phone: data.phone,
+          birthday: data.birthday,
+          bloodType: data.bloodType,
+          address: data.address,
+          class: data.class,
+        });
+      });
+      setStudentsData(studentsList);
+    };
+
+    fetchStudents();
+  }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setCurrentPage(1); // Reset to first page on search
   };
 
-  const handleSort = (column: string) => {
-    const order = sortOrder === "asc" ? "desc" : "asc";
-    setSortOrder(order);
-    setSortColumn(column);
+  const handleSort = (key: string) => {
+    let direction = "ascending";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
   };
 
-  const sortedData = [...studentsData].sort((a, b) => {
-    if (sortColumn === "name") {
-      return sortOrder === "asc"
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name);
-    } else if (sortColumn === "grade") {
-      return sortOrder === "asc" ? a.grade - b.grade : b.grade - a.grade;
+  const handleApplyFilters = (newFilters: {
+    subject: string;
+    className: string;
+  }) => {
+    setFilters({
+      subject: newFilters.subject.toLowerCase(),
+      className: newFilters.className.toLowerCase(),
+    });
+    setCurrentPage(1); // Reset to first page on filter
+  };
+
+  const sortedData = [...studentsData].sort((a: Student, b: Student) => {
+    if (sortConfig !== null) {
+      const { key, direction } = sortConfig;
+      if (
+        String(a[key as keyof Student] ?? "").toLowerCase() <
+        String(b[key as keyof Student] ?? "").toLowerCase()
+      ) {
+        return direction === "ascending" ? -1 : 1;
+      }
+      if (
+        String(a[key as keyof Student] ?? "").toLowerCase() >
+        String(b[key as keyof Student] ?? "").toLowerCase()
+      ) {
+        return direction === "ascending" ? 1 : -1;
+      }
     }
     return 0;
   });
 
   const filteredData = sortedData.filter(
     (student) =>
-      student.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      student.studentId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      student.grade.toString().includes(searchQuery.toLowerCase()) ||
-      student.class.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      student.phone?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      student.address.toLowerCase().includes(searchQuery.toLowerCase())
+      (student.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.studentUid.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.birthday.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.bloodType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.class.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const itemsPerPage = 9;
@@ -109,33 +178,30 @@ const StudentListPage = () => {
     >
       <td className="flex items-center gap-4 p-4">
         <Image
-          src={item.photo}
+          src={item.imageUrl}
           alt=""
           width={40}
           height={40}
           className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
         />
         <div className="flex flex-col">
-          <h3 className="font-semibold">{item.name}</h3>
-          <p className="text-xs text-gray-500">{item.class}</p>
+          <h3 className="font-semibold">{item.username}</h3>
+          <p className="text-xs text-gray-500">{item?.email}</p>
         </div>
       </td>
-      <td className="hidden md:table-cell">{item.studentId}</td>
-      <td className="hidden md:table-cell">{item.grade}</td>
+      <td className="hidden md:table-cell">{item.studentUid}</td>
+      <td className="hidden md:table-cell">{item.birthday}</td>
+      <td className="hidden md:table-cell">{item.bloodType}</td>
       <td className="hidden md:table-cell">{item.phone}</td>
       <td className="hidden md:table-cell">{item.address}</td>
+      <td className="hidden md:table-cell">{item.class}</td>
       <td>
         <div className="flex items-center gap-2">
           <Link href={`/list/students/${item.id}`}>
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-400 dark:bg-gray-700 p-1">
+            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-400 p-1">
               <EyeIcon className="w-5 h-5 text-white" />
             </button>
           </Link>
-          {role === "admin" && (
-            <div className="flex items-center gap-2">
-              <FormModal table="student" type="delete" id={item.id} />
-            </div>
-          )}
         </div>
       </td>
     </tr>
@@ -151,19 +217,13 @@ const StudentListPage = () => {
           <div className="flex items-center gap-4 self-end">
             <button
               className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
-              onClick={() => handleSort("name")}
-              title="Sort by Name"
+              onClick={() => handleSort("username")}
             >
-              <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
+              <ArrowsUpDownIcon className="w-5 h-5 text-gray-400 dark:text-white" />
             </button>
-            <button
-              className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
-              onClick={() => handleSort("grade")}
-              title="Sort by Grade"
-            >
-              <ArrowTrendingDownIcon className="w-5 h-5 text-gray-400" />
-            </button>
-            {role === "admin" && <FormModal table="student" type="create" />}
+            {typeof window !== "undefined" && localStorage.getItem("userRole") === "admin" && (
+              <FormModal table="student" type="create" />
+            )}
           </div>
         </div>
       </div>
@@ -171,7 +231,7 @@ const StudentListPage = () => {
       {paginatedData.length > 0 ? (
         <Table columns={columns} renderRow={renderRow} data={paginatedData} />
       ) : (
-        <div className="text-center text-gray-500 py-4">No results found</div>
+        <p className="text-center text-gray-500">No results found</p>
       )}
       {/* PAGINATION */}
       <Pagination

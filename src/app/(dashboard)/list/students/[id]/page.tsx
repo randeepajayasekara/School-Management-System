@@ -1,3 +1,9 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 import Announcements from "@/components/Announcements";
 import BigCalendar from "@/components/LargeCalender";
 import { BiDonateBlood } from "react-icons/bi";
@@ -7,6 +13,7 @@ import {
   PhoneIcon,
   UserPlusIcon,
   ClipboardDocumentCheckIcon,
+  ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 import { GiSpellBook } from "react-icons/gi";
 import { SiGoogleclassroom } from "react-icons/si";
@@ -15,6 +22,31 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SingleStudentPage = () => {
+  const router = useRouter();
+  const { id } = useParams();
+  const [studentData, setStudentData] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      if (id) {
+        const docRef = doc(db, "users", id as string);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setStudentData(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      }
+    };
+
+    fetchStudentData();
+  }, [id]);
+
+  if (!studentData) {
+    return <div className="flex justify-center-center w-8 h-8 ml-12 animate-spin"><ArrowPathIcon/></div>;
+  }
+
   return (
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       {/* LEFT */}
@@ -25,34 +57,34 @@ const SingleStudentPage = () => {
           <div className="bg-white dark:bg-slate-900 dark:border-slate-800 py-6 px-4 rounded-md flex-1 flex gap-4 border-2 border-gray-200">
             <div className="w-1/3">
               <Image
-                src="https://images.pexels.com/photos/5414817/pexels-photo-5414817.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                alt=""
+                src={studentData.profilePicture}
+                alt={studentData.username}
                 width={144}
                 height={144}
                 className="w-36 h-36 rounded-full object-cover"
               />
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
-              <h1 className="text-xl font-semibold">Cameron Moran</h1>
+              <h1 className="text-xl font-semibold">{studentData.username}</h1>
               <p className="text-sm text-gray-500">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               </p>
               <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-medium">
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
                   <BiDonateBlood className="h-5 w-5 text-gray-600" />
-                  <span>A+</span>
+                  <span>{studentData.bloodType}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
                   <CalendarDaysIcon className="h-5 w-5 text-gray-600" />
-                  <span>January 2025</span>
+                  <span>{studentData.birthday}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
                   <EnvelopeIcon className="h-5 w-5 text-gray-600" />
-                  <span>user@gmail.com</span>
+                  <span>{studentData.email}</span>
                 </div>
                 <div className="w-full md:w-1/3 lg:w-full 2xl:w-1/3 flex items-center gap-2">
                   <PhoneIcon className="h-5 w-5 text-gray-600" />
-                  <span>+1 234 567</span>
+                  <span>{studentData.phone}</span>
                 </div>
               </div>
             </div>
@@ -71,7 +103,7 @@ const SingleStudentPage = () => {
             <div className="bg-white dark:bg-slate-900 dark:border-slate-800 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
               <ClipboardDocumentCheckIcon className="w-6 h-6" />
               <div className="">
-                <h1 className="text-xl font-semibold">6th</h1>
+                <h1 className="text-xl font-semibold">{studentData.class.replace(/\D/g, '')}th</h1>
                 <span className="text-sm text-gray-400">Grade</span>
               </div>
             </div>
@@ -87,7 +119,7 @@ const SingleStudentPage = () => {
             <div className="bg-white dark:bg-slate-900 dark:border-slate-800 p-4 rounded-md flex gap-4 w-full md:w-[48%] xl:w-[45%] 2xl:w-[48%] border border-gray-200">
               <SiGoogleclassroom className="w-8 h-8" />
               <div className="">
-                <h1 className="text-xl font-semibold">6A</h1>
+                <h1 className="text-xl font-semibold">{studentData.class}</h1>
                 <span className="text-sm text-gray-400">Class</span>
               </div>
             </div>
