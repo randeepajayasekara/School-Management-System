@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import FilteringCriterias from "@/components/ui/filteringCriterias";
-import { role, teachersData } from "@/lib/data";
 import {
-  FunnelIcon,
   ArrowsUpDownIcon,
   EyeIcon,
 } from "@heroicons/react/24/outline";
@@ -16,14 +16,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 type Teacher = {
-  id: number;
-  teacherId: string;
-  name: string;
+  id: string;
+  teacherUid: string;
+  username: string;
   email?: string;
-  photo: string;
+  imageUrl: string;
   phone: string;
-  subjects: string[];
-  classes: string[];
+  birthday: string;
+  bloodtype: string;
   address: string;
 };
 
@@ -34,17 +34,17 @@ const columns = [
   },
   {
     header: "Teacher ID",
-    accessor: "teacherId",
+    accessor: "teacherUid",
     className: "hidden md:table-cell",
   },
   {
-    header: "Subjects",
-    accessor: "subjects",
+    header: "Birthdate",
+    accessor: "birthdate",
     className: "hidden md:table-cell",
   },
   {
-    header: "Classes",
-    accessor: "classes",
+    header: "Blood Type",
+    accessor: "bloodType",
     className: "hidden md:table-cell",
   },
   {
@@ -64,6 +64,7 @@ const columns = [
 ];
 
 const TeacherListPage = () => {
+  const [teachersData, setTeachersData] = useState<Teacher[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState<{
@@ -74,6 +75,31 @@ const TeacherListPage = () => {
     subject: string;
     className: string;
   }>({ subject: "", className: "" });
+
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      const q = query(collection(db, "users"), where("role", "==", "teacher"));
+      const querySnapshot = await getDocs(q);
+      const teachersList: Teacher[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        teachersList.push({
+          id: doc.id,
+          teacherUid: data.id, 
+          username: data.username,
+          email: data.email,
+          imageUrl: data.profilePicture,
+          phone: data.phone,
+          birthday: data.birthday,
+          bloodtype: data.bloodType,
+          address: data.address,
+        });
+      });
+      setTeachersData(teachersList);
+    };
+
+    fetchTeachers();
+  }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -124,26 +150,16 @@ const TeacherListPage = () => {
 
   const filteredData = sortedData.filter(
     (teacher) =>
-      (teacher.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        teacher.teacherId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        teacher.subjects
-          .join(",")
+      (teacher.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        teacher.teacherUid.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        teacher.birthday
           .toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
-        teacher.classes
-          .join(",")
+        teacher.bloodtype
           .toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
         teacher.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        teacher.address.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (filters.subject === "" ||
-        teacher.subjects
-          .map((subject) => subject.toLowerCase())
-          .includes(filters.subject)) &&
-      (filters.className === "" ||
-        teacher.classes
-          .map((className) => className.toLowerCase())
-          .includes(filters.className))
+        teacher.address.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const itemsPerPage = 9;
@@ -159,20 +175,20 @@ const TeacherListPage = () => {
     >
       <td className="flex items-center gap-4 p-4">
         <Image
-          src={item.photo}
+          src={item.imageUrl}
           alt=""
           width={40}
           height={40}
           className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
         />
         <div className="flex flex-col">
-          <h3 className="font-semibold">{item.name}</h3>
+          <h3 className="font-semibold">{item.username}</h3>
           <p className="text-xs text-gray-500">{item?.email}</p>
         </div>
       </td>
-      <td className="hidden md:table-cell">{item.teacherId}</td>
-      <td className="hidden md:table-cell">{item.subjects.join(", ")}</td>
-      <td className="hidden md:table-cell">{item.classes.join(", ")}</td>
+      <td className="hidden md:table-cell">{item.teacherUid}</td>
+      <td className="hidden md:table-cell">{item.birthday}</td>
+      <td className="hidden md:table-cell">{item.bloodtype}</td>
       <td className="hidden md:table-cell">{item.phone}</td>
       <td className="hidden md:table-cell">{item.address}</td>
       <td>
@@ -182,11 +198,6 @@ const TeacherListPage = () => {
               <EyeIcon className="w-5 h-5 text-white" />
             </button>
           </Link>
-          {role === "admin" && (
-            <div className="flex items-center gap-2">
-              <FormModal table="teacher" type="delete" id={item.id} />
-            </div>
-          )}
         </div>
       </td>
     </tr>
@@ -203,11 +214,13 @@ const TeacherListPage = () => {
             <FilteringCriterias onApplyFilters={handleApplyFilters} />
             <button
               className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
-              onClick={() => handleSort("name")}
+              onClick={() => handleSort("username")}
             >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400 dark:text-white" />
             </button>
-            {role === "admin" && <FormModal table="teacher" type="create" />}
+            {typeof window !== "undefined" && localStorage.getItem("userRole") === "admin" && (
+              <FormModal table="teacher" type="create" />
+            )}
           </div>
         </div>
       </div>

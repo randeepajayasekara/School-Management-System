@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
+import { nanoid } from 'nanoid';
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email address!" }),
@@ -59,9 +60,12 @@ const TeacherForm = ({
         formData.password
       );
       const createuser = CreateuserCredential.user;
+      const teacherId = nanoid(10);
 
       await setDoc(doc(db, "users", createuser.uid), {
+        id: teacherId,
         username: formData.username,
+        email: formData.email,
         phone: formData.phone,
         address: formData.address,
         bloodType: formData.bloodType,
@@ -84,8 +88,8 @@ const TeacherForm = ({
   });
 
   return (
-    <form className="flex flex-col gap-8" onSubmit={onSubmit}>
-      <h1 className="text-xl font-semibold">
+    <form className="flex flex-col gap-8 max-h-screen" onSubmit={onSubmit}>
+      <h1 className="text-xl font-semibold dark:text-black">
         {type === "create" ? "Create a new teacher" : "Update teacher"}
       </h1>
       <span className="text-xs text-gray-400 font-medium">
