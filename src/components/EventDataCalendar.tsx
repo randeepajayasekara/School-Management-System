@@ -4,34 +4,31 @@ import * as React from "react";
 
 import { Calendar } from "@/components/ui/calendar";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import { getDatabase, ref, get } from "firebase/database";
 
 export function EventDataCalendar() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 
-  // TEMPORARY
-  const events = [
-    {
-      id: 1,
-      title: "Lorem ipsum dolor",
-      time: "12:00 PM - 2:00 PM",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: 2,
-      title: "Lorem ipsum dolor",
-      time: "12:00 PM - 2:00 PM",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: 3,
-      title: "Lorem ipsum dolor",
-      time: "12:00 PM - 2:00 PM",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-  ];
+  const [events, setEvents] = React.useState<any[]>([]);
+  const db = getDatabase();
+
+  React.useEffect(() => {
+    const fetchEvents = async () => {
+      const eventsRef = ref(db, "eventsData");
+      const snapshot = await get(eventsRef);
+      if (snapshot.exists()) {
+        const eventsData = snapshot.val();
+        const eventsArray = Object.values(eventsData);
+        const shuffledEvents = eventsArray.sort(() => 0.5 - Math.random());
+        setEvents(shuffledEvents.slice(0, 3));
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
-    <div className="bg-white dark:bg-slate-900  p-4 rounded-md border-2 border-gray-200 dark:border-gray-800 z-10">
+    <div className="bg-white dark:bg-slate-900 p-4 rounded-md border-2 border-gray-200 dark:border-gray-800 z-10">
       <Calendar
         mode="single"
         selected={date}
@@ -53,11 +50,11 @@ export function EventDataCalendar() {
                 {event.title}
               </h1>
               <span className="text-gray-300 text-xs dark:text-gray-200">
-                {event.time}
+                {event.startTime} - {event.endTime}
               </span>
             </div>
             <p className="mt-2 text-gray-400 text-sm dark:text-gray-200">
-              {event.description}
+              {event.date}
             </p>
           </div>
         ))}
