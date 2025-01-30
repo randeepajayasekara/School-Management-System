@@ -6,7 +6,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { FunnelIcon, ArrowsUpDownIcon } from "@heroicons/react/24/outline";
-import { parentsData, role } from "@/lib/data";
+import { parentsData } from "@/lib/data";
 
 type Parent = {
   id: number;
@@ -37,10 +37,6 @@ const columns = [
     header: "Address",
     accessor: "address",
     className: "hidden lg:table-cell",
-  },
-  {
-    header: "Actions",
-    accessor: "action",
   },
 ];
 
@@ -101,15 +97,7 @@ const ParentListPage = () => {
       <td className="hidden md:table-cell">{item.students.join(", ")}</td>
       <td className="hidden md:table-cell">{item.phone}</td>
       <td className="hidden md:table-cell">{item.address}</td>
-      <td>
-        <div className="flex items-center gap-2">
-          {role === "admin" && (
-            <>
-              <FormModal table="parent" type="delete" id={item.id} />
-            </>
-          )}
-        </div>
-      </td>
+      
     </tr>
   );
 

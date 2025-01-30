@@ -19,7 +19,6 @@ import {
 import { GiSpellBook } from "react-icons/gi";
 import { SiGoogleclassroom } from "react-icons/si";
 import Performance from "@/components/Performance";
-import { role } from "@/lib/data";
 import Image from "next/image";
 
 const SingleTeacherPage = () => {
@@ -68,11 +67,11 @@ const SingleTeacherPage = () => {
             <div className="w-2/3 flex flex-col justify-between gap-4">
               <div className="flex items-center gap-4">
                 <h1 className="md:text-xl font-semibold text-sm">{teacherData.username}</h1>
-                {role === "admin" && (
+                {typeof window !== "undefined" && localStorage.getItem("userRole") === "admin" && (
                   <FormModal
-                    table="teacher"
-                    type="update"
-                    data={teacherData}
+                  table="teacher"
+                  type="update"
+                  data={teacherData}
                   />
                 )}
               </div>
