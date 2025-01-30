@@ -2,11 +2,33 @@
 
 import { Calendar, momentLocalizer, View, Views } from "react-big-calendar";
 import moment from "moment";
-import { calendarEvents } from "@/lib/data";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useState } from "react";
 
 const localizer = momentLocalizer(moment);
+
+const calendarEvents = [
+  {
+    title: "Math Class",
+    start: new Date(2025, 1, 1, 9, 0, 0),
+    end: new Date(2025, 1, 1, 10, 0, 0),
+  },
+  {
+    title: "Science Class",
+    start: new Date(2025, 1, 1, 11, 0, 0),
+    end: new Date(2025, 1, 1, 12, 0, 0),
+  },
+  {
+    title: "History Class",
+    start: new Date(2025, 1, 2, 9, 0, 0),
+    end: new Date(2025, 1, 2, 10, 0, 0),
+  },
+  {
+    title: "English Class",
+    start: new Date(2025, 1, 2, 11, 0, 0),
+    end: new Date(2025, 1, 2, 12, 0, 0),
+  },
+];
 
 const BigCalendar = () => {
   const [view, setView] = useState<View>(Views.WORK_WEEK);
