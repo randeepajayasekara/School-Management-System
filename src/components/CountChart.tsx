@@ -8,31 +8,48 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "@/firebase/firebase";
 
-const chartData = [
-  { gender: "girls", count: 275, fill: "var(--color-girls)" },
-  { gender: "boys", count: 200, fill: "var(--color-boys)" },
-];
-
-const chartConfig = {
-  count: {
-    label: "Count",
-  },
-  girls: {
-    label: "Girls",
-    color: "hsl(var(--chart-1))",
-  },
-  boys: {
-    label: "Boys",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig;
+const app = initializeApp(firebaseConfig);
 
 const CountChart = () => {
+  const [chartData, setChartData] = useState([
+    { gender: "girls", count: 0, fill: "var(--color-girls)" },
+    { gender: "boys", count: 0, fill: "var(--color-boys)" },
+  ]);
+
+  useEffect(() => {
+    const db = getDatabase(app);
+    const countRef = ref(db, "counts/uid");
+    onValue(countRef, (snapshot) => {
+      const data = snapshot.val();
+      setChartData([
+        { gender: "girls", count: data.girls, fill: "var(--color-girls)" },
+        { gender: "boys", count: data.boys, fill: "var(--color-boys)" },
+      ]);
+    });
+  }, []);
+
+  const chartConfig = {
+    count: {
+      label: "Count",
+    },
+    girls: {
+      label: "Girls",
+      color: "hsl(var(--chart-1))",
+    },
+    boys: {
+      label: "Boys",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
+
   const totalCount = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0);
-  }, []);
+  }, [chartData]);
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl w-full h-fit p-4 border-2 border-zinc-300 dark:border-slate-800 z-20">
@@ -97,9 +114,7 @@ const CountChart = () => {
         <div className="flex flex-col gap-1">
           <div className="w-5 h-5 bg-[hsl(var(--chart-2))] rounded-full" />
           <h1 className="font-bold">
-            {chartData
-              .find((data) => data.gender === "boys")
-              ?.count.toLocaleString()}
+            {chartData.find((data) => data.gender === "boys")?.count?.toLocaleString() || 0}
           </h1>
           <h2 className="text-xs text-gray-500">
             Boys (
@@ -114,9 +129,7 @@ const CountChart = () => {
         <div className="flex flex-col gap-1">
           <div className="w-5 h-5 bg-[hsl(var(--chart-1))] rounded-full" />
           <h1 className="font-bold">
-            {chartData
-              .find((data) => data.gender === "girls")
-              ?.count.toLocaleString()}
+            {chartData.find((data) => data.gender === "girls")?.count?.toLocaleString() || 0}
           </h1>
           <h2 className="text-xs text-gray-500">
             Girls (
