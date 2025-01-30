@@ -6,7 +6,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import FilteringCriterias from "@/components/ui/filteringCriterias";
-import { role, subjectsData } from "@/lib/data";
+import { subjectsData } from "@/lib/data";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 
 type Subject = {
@@ -24,10 +24,6 @@ const columns = [
     header: "Teachers",
     accessor: "teachers",
     className: "hidden md:table-cell",
-  },
-  {
-    header: "Actions",
-    accessor: "action",
   },
 ];
 
@@ -95,16 +91,6 @@ const SubjectListPage = () => {
     >
       <td className="flex items-center gap-4 p-4">{item.name}</td>
       <td className="hidden md:table-cell">{item.teachers.join(", ")}</td>
-      <td>
-        <div className="flex items-center gap-2">
-          {role === "admin" && (
-            <>
-              <FormModal table="subject" type="update" data={item} />
-              <FormModal table="subject" type="delete" id={item.id} />
-            </>
-          )}
-        </div>
-      </td>
     </tr>
   );
 
@@ -120,15 +106,7 @@ const SubjectListPage = () => {
         <h1 className="hidden md:block text-lg font-semibold">All Subjects</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch onSearch={handleSearch} />
-          <div className="flex items-center gap-4 self-end">
-            <button
-              className="w-8 h-8 flex items-center justify-center rounded-full border dark:border-gray-700"
-              onClick={() => handleSort("name")}
-            >
-              <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
-            </button>
-            {role === "admin" && <FormModal table="teacher" type="create" />}
-          </div>
+
         </div>
       </div>
       {/* LIST */}

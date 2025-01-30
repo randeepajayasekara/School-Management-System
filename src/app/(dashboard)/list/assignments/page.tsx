@@ -35,10 +35,6 @@ const columns = [
     accessor: "dueDate",
     className: "hidden md:table-cell",
   },
-  {
-    header: "Actions",
-    accessor: "action",
-  },
 ];
 
 const AssignmentListPage = () => {
@@ -113,16 +109,6 @@ const AssignmentListPage = () => {
       <td>{item.class}</td>
       <td className="hidden md:table-cell">{item.teacher}</td>
       <td className="hidden md:table-cell">{item.dueDate}</td>
-      <td>
-        <div className="flex items-center gap-2">
-          {(role === "admin" || role === "teacher") && (
-            <>
-              <FormModal table="assignment" type="update" data={item} />
-              <FormModal table="assignment" type="delete" id={item.id} />
-            </>
-          )}
-        </div>
-      </td>
     </tr>
   );
 
@@ -149,9 +135,6 @@ const AssignmentListPage = () => {
             >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400 " />
             </button>
-            {(role === "admin" || role === "teacher") && (
-              <FormModal table="assignment" type="create" />
-            )}
           </div>
         </div>
       </div>

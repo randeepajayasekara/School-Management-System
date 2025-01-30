@@ -5,7 +5,7 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { resultsData, role } from "@/lib/data";
+import { resultsData } from "@/lib/data";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 
 type Result = {
@@ -47,10 +47,6 @@ const columns = [
     header: "Date",
     accessor: "date",
     className: "hidden md:table-cell",
-  },
-  {
-    header: "Actions",
-    accessor: "action",
   },
 ];
 
@@ -128,16 +124,6 @@ const ResultListPage = () => {
       <td className="hidden md:table-cell">{item.teacher}</td>
       <td className="hidden md:table-cell">{item.class}</td>
       <td className="hidden md:table-cell">{item.date}</td>
-      <td>
-        <div className="flex items-center gap-2">
-          {(role === "admin" || role === "teacher") && (
-            <>
-              <FormModal table="result" type="update" data={item} />
-              <FormModal table="result" type="delete" id={item.id} />
-            </>
-          )}
-        </div>
-      </td>
     </tr>
   );
 
@@ -202,9 +188,6 @@ const ResultListPage = () => {
             >
               <ArrowsUpDownIcon className="w-5 h-5 text-gray-400" />
             </button>
-            {(role === "admin" || role === "teacher") && (
-              <FormModal table="result" type="create" />
-            )}
           </div>
         </div>
       </div>
