@@ -1,11 +1,50 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import Announcements from "@/components/Announcements";
+import { toast } from "react-hot-toast"; 
 import AttendanceChart from "@/components/AttendanceChart";
-import CountChart from "@/components//CountChart";
+import CountChart from "@/components/CountChart";
 import FinanceChart from "@/components/FinanceChart";
 import UserCard from "@/components/UserCard";
 import { EventDataCalendar } from "@/components/EventDataCalendar";
 
 const AdminPage = () => {
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        const db = getFirestore();
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const role = userDoc.data().role;
+          setUserRole(role);
+          if (role !== "admin") {
+            router.push("/");
+            toast.error("You are not authorized to view this page.");
+          }
+        } else {
+          router.push("/");
+        }
+      } else {
+        router.push("/");
+      }
+    };
+
+    fetchUserRole();
+  }, [router]);
+
+  if (userRole !== "admin") {
+    return null; // or a loading spinner
+  }
+
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
       {/* LEFT */}
