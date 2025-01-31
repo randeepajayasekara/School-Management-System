@@ -39,14 +39,6 @@ const LessonListPage = () => {
     direction: string;
   } | null>(null);
 
-  const handleSort = (key: keyof Lesson) => {
-    let direction = "ascending";
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
-      direction = "descending";
-    }
-    setSortConfig({ key, direction });
-  };
-
   useEffect(() => {
     let filtered = lessonsData.filter((lesson) =>
       lesson.subject.toLowerCase().includes(searchQuery.toLowerCase())

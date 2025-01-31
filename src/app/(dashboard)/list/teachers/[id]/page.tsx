@@ -22,8 +22,6 @@ import Performance from "@/components/Performance";
 import Image from "next/image";
 
 const SingleTeacherPage = () => {
-  const { id } = useParams();
-  const [teacherData, setTeacherData] = useState<{ [key: string]: any } | null>(null);
 
   useEffect(() => {
     const fetchTeacherData = async () => {
