@@ -45,7 +45,7 @@ const ClassListPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [gradeFilter, setGradeFilter] = useState<number | null>(null);
   const [supervisorFilter, setSupervisorFilter] = useState<string>("");
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let filtered = classesData.filter(

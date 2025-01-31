@@ -5,7 +5,7 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { FunnelIcon, ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import { parentsData } from "@/lib/data";
 
 type Parent = {
@@ -46,7 +46,7 @@ const ParentListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
   const [searchQuery, setSearchQuery] = useState("");
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
