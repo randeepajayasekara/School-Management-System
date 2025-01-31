@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
 
 const inter = Poppins({
@@ -26,6 +27,7 @@ export default function RootLayout({
       <meta name="apple-mobile-web-app-title" content="School Management" />
       </head>
       <body className={inter.className}>
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
