@@ -14,8 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 export function LoginForm({
   className,
@@ -61,7 +60,7 @@ export function LoginForm({
       } else {
         toast.error("User is not authorized by system");
       }
-    } catch {
+    } catch (error) {
       toast.error("Failed to login. Please check your credentials");
     }
   };
@@ -74,7 +73,7 @@ export function LoginForm({
     try {
       await sendPasswordResetEmail(auth, email);
       toast.success("Password reset email sent.");
-    } catch {
+    } catch (error) {
       toast.error("Failed to send password reset email.");
     }
   };
@@ -125,12 +124,10 @@ export function LoginForm({
             </div>
           </form>
           <div className="relative hidden bg-muted md:block">
-            <Image
+            <img
               src="https://i.ibb.co/Dr431hN/login-Form-BG.jpg"
               alt="Image"
-              layout="fill"
-              objectFit="cover"
-              className="select-none absolute inset-0 dark:brightness-[0.2] dark:grayscale"
+              className="select-none absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>
         </CardContent>

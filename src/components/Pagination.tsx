@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const Pagination = ({
   totalPages,
   currentPage,

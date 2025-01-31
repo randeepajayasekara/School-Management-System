@@ -24,7 +24,7 @@ const EventForm = ({
     data,
 }: {
     type: "create" | "update";
-    data?: Inputs;
+    data?: any;
 }) => {
     const {
         register,
@@ -63,7 +63,7 @@ const EventForm = ({
 
             toast.success(`Event ${type === "create" ? "created" : "updated"} successfully`);
         } catch (error) {
-            toast.error(`Error ${type === "create" ? "creating" : "updating"} event: ${(error as Error).message}`);
+            toast.error(`Error ${type === "create" ? "creating" : "updating"} event: ${(error as any).message}`);
         } finally {
             setLoading(false);
         }

@@ -17,7 +17,7 @@ const FilteringCriterias = ({ onApplyFilters }: FilteringCriteriasProps) => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const handleChange = (e: { target: { name: string; value: string } }) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
       ...prevFilters,

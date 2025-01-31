@@ -32,7 +32,7 @@ const StudentForm = ({
   data,
 }: {
   type: "create" | "update";
-  data?: Inputs;
+  data?: any;
 }) => {
   const {
     register,
@@ -76,7 +76,7 @@ const StudentForm = ({
       console.log("Student account created successfully");
       toast.success("Student account created successfully, Account Switched for testing...");
     } catch (error) {
-      toast.error(`Error creating student account: ${(error as Error).message}`);
+      toast.error(`Error creating student account: ${(error as any).message}`);
     } finally {
       setLoading(false);
     }
