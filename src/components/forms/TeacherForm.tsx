@@ -36,7 +36,7 @@ const TeacherForm = ({
   data,
 }: {
   type: "create" | "update";
-  data?: any;
+  data?: Inputs;
 }) => {
   const {
     register,
@@ -81,7 +81,7 @@ const TeacherForm = ({
       console.log("Teacher account created successfully");
       toast.success("Teacher account created successfully, Account Switched for testing...");
     } catch (error) {
-      toast.error(`Error creating teacher account: ${(error as any).message}`);
+      toast.error(`Error creating teacher account: ${(error as Error).message}`);
     } finally {
       setLoading(false);
     }

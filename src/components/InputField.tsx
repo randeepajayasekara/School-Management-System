@@ -1,12 +1,12 @@
 import { FieldError, UseFormRegister } from "react-hook-form";
 
-type InputFieldProps = {
+type InputFieldProps<T> = {
   label: string;
   name: string;
-  defaultValue?: any;
   type?: string;
-  register: UseFormRegister<any>;
+  register: UseFormRegister<T>;
   error?: FieldError;
+  defaultValue?: string | number | readonly string[] | undefined;
   hidden?: boolean;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
@@ -19,7 +19,7 @@ const InputField = ({
   defaultValue,
   error,
   inputProps,
-}: InputFieldProps) => {
+}: InputFieldProps<Record<string, unknown>>) => {
   return (
     <div className="flex flex-col gap-2 w-full md:w-1/4">
       <label className="text-xs text-gray-500">{label}</label>

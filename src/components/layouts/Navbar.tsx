@@ -24,7 +24,7 @@ import {
 import { ModeToggle } from "../theme/mode-toggle";
 
 const Navbar = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [, setUser] = useState<User | null>(null);
   interface UserData {
     username: string;
     nameRole: string;

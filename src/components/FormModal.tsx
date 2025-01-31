@@ -25,7 +25,7 @@ const EventForm = dynamic(() => import("@/components/forms/EventForm"), {
 });
 
 const forms: {
-  [key: string]: (type: "create" | "update", data?: any) => JSX.Element;
+  [key: string]: (type: "create" | "update", data?: Record<string, unknown>) => JSX.Element;
 } = {
   teacher: (type, data) => <TeacherForm type={type} data={data} />,
   student: (type, data) => <StudentForm type={type} data={data} />,
@@ -52,7 +52,7 @@ const FormModal = ({
     | "event"
     | "announcement";
   type: "create" | "update" | "delete";
-  data?: any;
+  data?: Record<string, unknown>;
   id?: string;
 }) => {
   const size = type === "create" ? "w-8 h-8" : "w-7 h-7";
@@ -88,7 +88,7 @@ const FormModal = ({
       toast.success(`${table.charAt(0).toUpperCase() + table.slice(1)} deleted successfully`);
       setOpen(false);
     } catch (error) {
-      toast.error(`Error deleting ${table}: ${(error as any).message}`);
+      toast.error(`Error deleting ${table}: ${(error as Error).message}`);
     } finally {
       setLoading(false);
     }

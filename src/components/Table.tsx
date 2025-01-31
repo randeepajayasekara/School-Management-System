@@ -4,12 +4,12 @@ type TableProps = {
     accessor: string;
     className?: string;
   }[];
-  renderRow: (item: any) => React.ReactNode;
-  data: any[];
+  renderRow: (item: Record<string, unknown>) => React.ReactNode;
+  data: Record<string, unknown>[];
   onHeaderClick?: (accessor: string) => void;
 };
 
-const Table = ({ columns, renderRow, data, onHeaderClick }: TableProps) => {
+const Table = ({ columns, renderRow, data }: TableProps) => {
   return (
     <table className="w-full mt-4">
       <thead>

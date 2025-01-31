@@ -29,7 +29,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaUserGraduate } from "react-icons/fa";

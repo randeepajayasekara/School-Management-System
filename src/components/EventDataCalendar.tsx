@@ -9,7 +9,15 @@ import { getDatabase, ref, get } from "firebase/database";
 export function EventDataCalendar() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 
-  const [events, setEvents] = React.useState<any[]>([]);
+  interface Event {
+    id: string;
+    title: string;
+    startTime: string;
+    endTime: string;
+    date: string;
+  }
+
+  const [events, setEvents] = React.useState<Event[]>([]);
   const db = getDatabase();
 
   React.useEffect(() => {
@@ -18,14 +26,14 @@ export function EventDataCalendar() {
       const snapshot = await get(eventsRef);
       if (snapshot.exists()) {
         const eventsData = snapshot.val();
-        const eventsArray = Object.values(eventsData);
+        const eventsArray = Object.values(eventsData) as Event[];
         const shuffledEvents = eventsArray.sort(() => 0.5 - Math.random());
         setEvents(shuffledEvents.slice(0, 3));
       }
     };
 
     fetchEvents();
-  }, []);
+  }, [db]);
 
   return (
     <div className="bg-white dark:bg-slate-900 p-4 rounded-md border-2 border-gray-200 dark:border-gray-800 z-10">

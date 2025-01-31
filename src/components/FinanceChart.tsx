@@ -35,7 +35,7 @@ const FinanceChart = () => {
           (snapshot) => {
             const data = snapshot.val();
             const financeData = data
-              ? data.map((item: any) => ({
+              ? data.map((item: { name: string; Income: number; Expense: number }) => ({
                   name: item.name,
                   Income: item.Income,
                   Expense: item.Expense,
@@ -50,7 +50,11 @@ const FinanceChart = () => {
           }
         );
       } catch (err) {
-        setError((err as any).message);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
         setLoading(false);
       }
     };

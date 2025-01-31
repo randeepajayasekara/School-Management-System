@@ -14,7 +14,7 @@ export type FirebaseTable =
 
 export type FirebaseAction = "create" | "update" | "delete";
 
-export interface FirebaseProps<T = any> {
+export interface FirebaseProps<T = unknown> {
     table: FirebaseTable;
     type: FirebaseAction;
     data?: Partial<T>;
