@@ -1,11 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import { lessonsData } from "@/lib/data";
 
 type Lesson = {
@@ -105,7 +103,6 @@ const LessonListPage = () => {
         <h1 className="hidden md:block text-lg font-semibold">All Lessons</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch onSearch={handleSearch} />
-
         </div>
       </div>
       {/* LIST */}

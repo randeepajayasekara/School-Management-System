@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import Table from "@/components/Table";
