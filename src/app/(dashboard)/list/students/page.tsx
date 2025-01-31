@@ -76,10 +76,6 @@ const StudentListPage = () => {
     key: string;
     direction: string;
   } | null>(null);
-  const [filters, setFilters] = useState<{
-    subject: string;
-    className: string;
-  }>({ subject: "", className: "" });
 
   useEffect(() => {
     const fetchStudents = async () => {

@@ -68,17 +68,6 @@ const SubjectListPage = () => {
     setCurrentPage(page);
   };
 
-  const handleSort = (key: string) => {
-    let direction = "ascending";
-    if (
-      sortConfig &&
-      sortConfig.key === key &&
-      sortConfig.direction === "ascending"
-    ) {
-      direction = "descending";
-    }
-    setSortConfig({ key, direction });
-  };
 
   const renderRow = (item: Subject) => (
     <tr

@@ -22,7 +22,17 @@ import Image from "next/image";
 
 const SingleStudentPage = () => {
   const { id } = useParams();
-  const [studentData, setStudentData] = useState<any>(null);
+  interface StudentData {
+    profilePicture: string;
+    username: string;
+    bloodType: string;
+    birthday: string;
+    email: string;
+    phone: string;
+    class: string;
+  }
+
+  const [studentData, setStudentData] = useState<StudentData | null>(null);
 
   useEffect(() => {
     const fetchStudentData = async () => {
