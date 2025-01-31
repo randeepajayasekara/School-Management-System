@@ -46,6 +46,16 @@ To install the project, follow these steps:
        pnpm run build
      
        pnpm run start (To preview)
+
+## Login Credentials - To Explore & Use
+
+| Role | Email | Password |
+|----------|----------|----------|
+| Admin    | admin@dev.com   | admin12345   |
+| Teacher    | teacher@dev.com   | teacher12345   |
+| Student   | student@dev.com   | student12345   |
+| Parent    | parent@dev.com   | parent12345   |
+
 <hr/>
 
 ## Technologies Used
@@ -65,7 +75,6 @@ To install the project, follow these steps:
   - Zod
 
 - **UI Components and Icons**:
-  - Headless UI
   - Heroicons
   - Radix UI
   - Lucide React
