@@ -93,7 +93,7 @@ const AnnouncementListPage = () => {
             {typeof window !== "undefined" && localStorage.getItem("userRole") === "admin" && (
             <>
               <FormModal table="announcement" type="update" data={item} />
-              <FormModal table="announcement" type="delete" data={item.id} />
+              <FormModal table="announcement" type="delete" data={{ id: item.id }} />
             </>
             )}
         </div>
