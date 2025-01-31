@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
@@ -40,6 +41,7 @@ const columns = [
 ];
 
 const ParentListPage = () => {
+  const [data, setData] = useState<Parent[]>(parentsData);
   const [filteredData, setFilteredData] = useState<Parent[]>(parentsData);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
@@ -95,6 +97,7 @@ const ParentListPage = () => {
       <td className="hidden md:table-cell">{item.students.join(", ")}</td>
       <td className="hidden md:table-cell">{item.phone}</td>
       <td className="hidden md:table-cell">{item.address}</td>
+      
     </tr>
   );
 
