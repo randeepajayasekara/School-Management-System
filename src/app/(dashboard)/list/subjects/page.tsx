@@ -29,6 +29,10 @@ const SubjectListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof Subject;
+    direction: string;
+  } | null>(null);
   const [error] = useState<string | null>(null);
 
   useEffect(() => {
