@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import Announcements from "@/components/Announcements";
@@ -19,10 +19,8 @@ import { GiSpellBook } from "react-icons/gi";
 import { SiGoogleclassroom } from "react-icons/si";
 import Performance from "@/components/Performance";
 import Image from "next/image";
-import Link from "next/link";
 
 const SingleStudentPage = () => {
-  const router = useRouter();
   const { id } = useParams();
   const [studentData, setStudentData] = useState<any>(null);
 

@@ -67,18 +67,6 @@ const LessonListPage = () => {
     setCurrentPage(page);
   };
 
-  const handleSort = (key: keyof Lesson) => {
-    let direction = "ascending";
-    if (
-      sortConfig &&
-      sortConfig.key === key &&
-      sortConfig.direction === "ascending"
-    ) {
-      direction = "descending";
-    }
-    setSortConfig({ key, direction });
-  };
-
   const renderRow = (item: Lesson) => (
     <tr
       key={item.id}

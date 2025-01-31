@@ -71,7 +71,7 @@ const TeacherListPage = () => {
     key: string;
     direction: string;
   } | null>(null);
-  const [filters, setFilters] = useState<{
+  const [, setFilters] = useState<{
     subject: string;
     className: string;
   }>({ subject: "", className: "" });
