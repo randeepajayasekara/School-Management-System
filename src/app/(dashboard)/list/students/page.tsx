@@ -240,3 +240,7 @@ const StudentListPage = () => {
 };
 
 export default StudentListPage;
+
+function setFilters(arg0: { subject: string; className: string; }) {
+  throw new Error("Function not implemented.");
+}

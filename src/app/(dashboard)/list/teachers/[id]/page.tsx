@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import Announcements from "@/components/Announcements";
@@ -20,7 +20,11 @@ import { SiGoogleclassroom } from "react-icons/si";
 import Performance from "@/components/Performance";
 import Image from "next/image";
 
+import { useParams } from 'next/navigation';
+
 const SingleTeacherPage = () => {
+  const { id } = useParams();
+  const [teacherData, setTeacherData] = useState<any>(null);
 
   useEffect(() => {
     const fetchTeacherData = async () => {

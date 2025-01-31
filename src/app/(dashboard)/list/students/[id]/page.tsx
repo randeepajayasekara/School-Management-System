@@ -43,7 +43,7 @@ const SingleStudentPage = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setStudentData(docSnap.data());
+          setStudentData(docSnap.data() as StudentData);
         } else {
           console.log("No such document!");
         }

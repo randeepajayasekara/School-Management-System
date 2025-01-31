@@ -37,7 +37,7 @@ const LessonListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortConfig] = useState<{
+  const [sortConfig, setSortConfig] = useState<{
     key: keyof Lesson;
     direction: string;
   } | null>(null);
