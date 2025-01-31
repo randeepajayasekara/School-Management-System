@@ -124,16 +124,6 @@ const StudentListPage = () => {
     setSortConfig({ key, direction });
   };
 
-  const handleApplyFilters = (newFilters: {
-    subject: string;
-    className: string;
-  }) => {
-    setFilters({
-      subject: newFilters.subject.toLowerCase(),
-      className: newFilters.className.toLowerCase(),
-    });
-    setCurrentPage(1); // Reset to first page on filter
-  };
 
   const sortedData = [...studentsData].sort((a: Student, b: Student) => {
     if (sortConfig !== null) {

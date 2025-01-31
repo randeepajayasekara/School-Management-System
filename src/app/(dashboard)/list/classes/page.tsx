@@ -37,7 +37,6 @@ const columns = [
 ];
 
 const ClassListPage = () => {
-  const [data, setData] = useState<Class[]>(classesData);
   const [filteredData, setFilteredData] = useState<Class[]>(classesData);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(11);

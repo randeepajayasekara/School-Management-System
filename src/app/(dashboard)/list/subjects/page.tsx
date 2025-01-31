@@ -1,13 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import FormModal from "@/components/FormModal";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import FilteringCriterias from "@/components/ui/filteringCriterias";
 import { subjectsData } from "@/lib/data";
-import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 
 type Subject = {
   id: number;
@@ -28,7 +25,6 @@ const columns = [
 ];
 
 const SubjectListPage = () => {
-  const [data, setData] = useState<Subject[]>(subjectsData);
   const [filteredData, setFilteredData] = useState<Subject[]>(subjectsData);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -37,7 +33,7 @@ const SubjectListPage = () => {
     key: string;
     direction: string;
   } | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     let filtered = subjectsData.filter(
